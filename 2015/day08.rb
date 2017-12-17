@@ -28,6 +28,7 @@ while line = file.gets
   encoded_length += line.length + 1
   memory_length += line.length - subtract
 end
+file.close
 
 puts code_length - memory_length
 puts encoded_length - code_length

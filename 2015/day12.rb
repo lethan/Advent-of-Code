@@ -4,6 +4,7 @@ file = File.open('input_day12.txt', 'r')
 while line = file.gets
   input = JSON.parse(line)
 end
+file.close
 
 def sum(input, ignore_red=false)
   if ignore_red

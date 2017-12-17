@@ -7,6 +7,7 @@ while line = file.gets
   end
   happiness_index[match[1]].merge!(match[4] => (match[2] == "gain" ? 1 : -1) * match[3].to_i)
 end
+file.close
 
 def max_happiness(selectable, selected, happiness_index, current_value)
   if selectable.empty?

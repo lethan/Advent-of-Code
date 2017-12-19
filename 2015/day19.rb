@@ -46,6 +46,7 @@ def reverse_permutation(input, reverse_transformations, transforms, minimum, see
         value = reverse_permutation(permut, reverse_transformations, transforms + 1, minimum, seen)
         if !value.nil?
           minimum = value if minimum.nil? || value < minimum
+          return minimum
         end
       end
     end

@@ -32,7 +32,9 @@ end
 
 puts permutations.keys.length
 
-def reverse_permutation(input, reverse_transformations, transforms, minimum)
+def reverse_permutation(input, reverse_transformations, transforms, minimum, seen)
+  return nil if !seen[input].nil?
+  seen[input] = true
   return transforms if input == "e"
   return nil if !minimum.nil? && minimum < transforms
 
@@ -41,7 +43,7 @@ def reverse_permutation(input, reverse_transformations, transforms, minimum)
       reverse_transformations[key].each do |change|
         permut = input.dup
         permut[index..index+key.length-1] = change
-        value = reverse_permutation(permut, reverse_transformations, transforms + 1, minimum)
+        value = reverse_permutation(permut, reverse_transformations, transforms + 1, minimum, seen)
         if !value.nil?
           minimum = value if minimum.nil? || value < minimum
         end
@@ -51,4 +53,4 @@ def reverse_permutation(input, reverse_transformations, transforms, minimum)
   minimum
 end
 
-puts reverse_permutation(input, reverse_transformations, 0, nil)
+puts reverse_permutation(input, reverse_transformations, 0, nil, Hash.new)

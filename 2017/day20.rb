@@ -94,7 +94,7 @@ class Particle
   def tick
     @v_x += @a_x
     @v_y += @a_y
-    @v_z += @a_<
+    @v_z += @a_z
     @p_x += @v_x
     @p_y += @v_y
     @p_z += @v_z
@@ -142,3 +142,22 @@ end
 file.close
 
 puts particles.sort!.first.particle_number
+
+1.upto(50) do |number|
+  particles.sort! { |a,b| a.point <=> b.point }
+  delete = []
+  last = nil
+  particles.each_with_index do |particle, index|
+    if particle.point == last&.point
+      delete << index - 1 if !delete.include?(index - 1)
+      delete << index
+    end
+    last = particle
+  end
+  delete.reverse.each do |val|
+    particles.delete_at(val)
+  end
+  particles.map(&:tick)
+end
+
+puts particles.length

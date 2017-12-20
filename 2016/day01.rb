@@ -91,5 +91,5 @@ input.each do |val|
   end
 end
 
-puts x + y
-puts first_visited.sum
+puts x.abs + y.abs
+puts first_visited.map(&:abs).sum

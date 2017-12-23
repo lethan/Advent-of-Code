@@ -38,6 +38,6 @@ end
 
 puts run(program, Hash.new(0))
 
-primes = 0
-(105700..122700).step(17).each { |a| primes += 1 if !a.prime?}
-puts primes
+not_primes = 0
+(105700..122700).step(17).each { |a| not_primes += 1 if !a.prime?}
+puts not_primes

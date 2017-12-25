@@ -29,7 +29,6 @@ start_state = nil
 current_state = nil
 in_value_zero = true
 
-binding.pry
 file = File.open('input_day25.txt', 'r')
 while line = file.gets
   match = /Begin in state ([A-Z])\./.match(line)

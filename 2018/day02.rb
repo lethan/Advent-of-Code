@@ -38,4 +38,3 @@ while current = id_codes.pop
     end
   end
 end
-

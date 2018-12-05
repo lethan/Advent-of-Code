@@ -18,16 +18,17 @@ def reduced_length(arr)
       counter += 1
     end
   end
-  arr.length
+  [arr.length, arr]
 end
 
 arr = input.split('')
-puts reduced_length(arr)
+result = reduced_length(arr)
+puts result[0]
 
 shortest_length = nil
-input.split('').map(&:downcase).uniq.each do |remove|
-  arr = input.split('') - [remove.downcase] - [remove.upcase]
-  length = reduced_length(arr)
+result[1].map(&:downcase).uniq.each do |remove|
+  arr = result[1] - [remove.downcase] - [remove.upcase]
+  length = reduced_length(arr)[0]
   shortest_length ||= length
   shortest_length = length if length < shortest_length
 end

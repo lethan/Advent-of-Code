@@ -1,5 +1,3 @@
-require 'pry-byebug'
-
 file = File.open('input_day12.txt', 'r')
 state = Hash.new(false)
 transformations = {}

@@ -1,0 +1,32 @@
+(#ip 1) 0 = A, 1 = P, 2 = B, 3 = C, 4 = D, 5 = E
+ 0: D = 123
+ 1: D = D & 456
+ 2: D = D == 72 ? 1 : 0
+ 3: P = D + P (JUMP TO 5 IF D == 1)
+ 4: P = 0 (JUMP TO 1)
+ 5: D = 0
+ 6: E = D | 65536
+ 7: D = 10704114
+ 8: B = E & 255
+ 9: D = D + B
+10: D = D & 16777215
+11: D = D * 65899
+12: D = D & 16777215
+13: B = 256 > E ? 1 : 0
+14: P = B + P (JUMP TO 16 IF B == 1)
+15: P = P + 1 (JUMP TO 17)
+16: P = 27 (JUMP TO 28)
+17: B = 0
+18: C = B + 1
+19: C = C * 256
+20: C = C > E ? 1 : 0
+21: P = C + P (JUMP TO 22 IF C == 1)
+22: P = P + 1 (JUMP TO 24)
+23: P = 25 (JUMP TO 26)
+24: B = B + 1
+25: P = 17 (JUMP TO 18)
+26: E = B
+27: P = 7 (JUMP TO 8)
+28: B = D == A ? 1 : 0
+29: P = B + P (HALT IF B == 1)
+30: P = 5 (JUMP TO 6)

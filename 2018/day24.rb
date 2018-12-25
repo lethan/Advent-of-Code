@@ -78,6 +78,7 @@ def combat(immune_system, infections, boost)
   end
   selected_targets = 1
   killed_units = 1
+  winner = :stallmate
   until immune_system.empty? || infections.empty? || selected_targets.zero? || killed_units.zero?
     selected_targets = 0
     possible_targets = infections.dup
@@ -118,7 +119,9 @@ def combat(immune_system, infections, boost)
     infections -= deaths
   end
 
-  [(immune_system + infections).sum(&:units), infections.empty? ? :immune_system : :infections]
+  winner = :immune_system if infections.empty?
+  winner = :infections if immune_system.empty?
+  [(immune_system + infections).sum(&:units), winner]
 end
 
 boost = 0

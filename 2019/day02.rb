@@ -15,9 +15,9 @@ def run_program(program, noun, verb)
   while pointer >= 0
     case input[pointer]
     when 1
-      input[input[pointer+3]] = input[input[pointer+1]] + input[input[pointer+2]]
+      input[input[pointer + 3]] = input[input[pointer + 1]] + input[input[pointer + 2]]
     when 2
-      input[input[pointer+3]] = input[input[pointer+1]] * input[input[pointer+2]]
+      input[input[pointer + 3]] = input[input[pointer + 1]] * input[input[pointer + 2]]
     when 99
       break
     else
@@ -36,7 +36,7 @@ puts run_program(program, 12, 2)
 noun = 0
 verb = 0
 result = run_program(program, noun, verb)
-until result == 19690720
+until result == 19_690_720
   noun += 1
   if noun > 99
     verb += 1

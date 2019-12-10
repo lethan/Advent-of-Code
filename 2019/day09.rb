@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
-
 # Programm class that runs programs
 class Program
   def initialize(program)

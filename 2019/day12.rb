@@ -19,7 +19,7 @@ seen_z = false
 z_start = moons.flat_map { |moon| [moon[:z_pos], moon[:z_vel]] }
 z_ticks = nil
 tick = 0
-until seen_x && seen_y && seen_z
+until seen_x && seen_y && seen_z && tick >= 1000
   tick += 1
   moons.each_with_index do |moon_a, index|
     ((index + 1)..(moons.size - 1)).each do |index2|

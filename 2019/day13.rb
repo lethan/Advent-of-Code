@@ -133,7 +133,8 @@ class Program
   end
 end
 
-def display_game(tiles)
+def display_game(tiles, interactive = false)
+  system 'clear' if interactive
   rows = tiles.keys.map(&:last).max
   columns = tiles.keys.map(&:first).max
   (0..rows).each do |row|
@@ -154,8 +155,11 @@ def display_game(tiles)
             end
     end
     print "\n"
+    $stdout.flush
   end
   puts ''
+  $stdout.flush
+  sleep(0.15) if interactive
 end
 
 file = File.open('input_day13.txt', 'r')
@@ -202,6 +206,7 @@ until game.ended? && !game.outputs?
       ball_pos = x_pos if tile_id == 4
     end
   end
+  #display_game(tiles)
   game.input(ball_pos <=> paddle_pos)
 end
 puts tiles[[-1, 0]]

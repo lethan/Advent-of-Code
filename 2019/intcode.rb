@@ -2,13 +2,19 @@
 
 class Program
   def initialize(program)
-    @program = program.clone
+    @original_program = program.clone
+    restart
+  end
+
+  def restart
+    @program = @original_program.clone
     @pointer = 0
     @relative_base = 0
     @inputs = []
     @outputs = []
     @status = :running
     run
+    self
   end
 
   def input(input)

@@ -24,8 +24,18 @@ class Program
     self
   end
 
+  def input_string(input_string)
+    input_string.split('').each do |char|
+      input(char.ord)
+    end
+  end
+
   def output
     @outputs.shift
+  end
+
+  def output_ascii
+    output.chr
   end
 
   def outputs?

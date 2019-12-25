@@ -38,6 +38,12 @@ class Program
     output.chr
   end
 
+  def output_string
+    out = ''.dup
+    out << output_ascii while outputs?
+    out.freeze
+  end
+
   def outputs?
     !@outputs.empty?
   end

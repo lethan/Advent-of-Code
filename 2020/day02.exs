@@ -5,10 +5,10 @@ defmodule Day2 do
 
     content
     |> String.split("\n", trim: true)
-    |> Enum.map(fn x -> split(x) end)
+    |> Enum.map(&split_to_map/1)
   end
 
-  defp split(string) do
+  defp split_to_map(string) do
     [min, max, letter, string] = Regex.run(~r/(?<min>[0-9]+)-(?<max>[0-9]+) (?<letter>.): (?<str>.+)/, string, capture: :all_but_first)
     %{min: String.to_integer(min), max: String.to_integer(max), letter: letter, string: string}
   end
@@ -17,7 +17,7 @@ defmodule Day2 do
     input
     |> Enum.filter(fn mp ->
       count = mp.string |> String.graphemes |> Enum.count(& &1 == mp.letter)
-      count <= mp.max && count >= mp.min
+      count <= mp.max and count >= mp.min
     end)
     |> Enum.count
   end
@@ -27,7 +27,7 @@ defmodule Day2 do
     |> Enum.filter(fn mp ->
       first = String.at(mp.string, mp.min - 1) == mp.letter
       last = String.at(mp.string, mp.max - 1) == mp.letter
-      (first && !last || (!first && last))
+      (first and !last) or (!first and last)
     end)
     |> Enum.count
   end

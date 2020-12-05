@@ -147,7 +147,6 @@ input
 |> Day4.task1
 |> IO.puts
 
-
 input
 |> Day4.task2
 |> IO.puts

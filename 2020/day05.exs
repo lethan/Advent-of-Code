@@ -29,15 +29,15 @@ defmodule Day5 do
     end
   end
 
-  def find_vacent([current | passes], last_value \\ nil) do
+  def find_vacant([current | passes], last_value \\ nil) do
     if last_value do
       if last_value + 1 == current do
-        find_vacent(passes, current)
+        find_vacant(passes, current)
       else
         last_value + 1
       end
     else
-      find_vacent(passes, current)
+      find_vacant(passes, current)
     end
   end
 
@@ -51,7 +51,7 @@ defmodule Day5 do
     input
     |> Enum.map(&seat_id/1)
     |> Enum.sort
-    |> find_vacent
+    |> find_vacant
   end
 end
 

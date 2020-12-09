@@ -60,8 +60,8 @@ defmodule Day8 do
     end
   end
 
-  def possible_programs({[], _prev, _acc}, _front_program, all_programs), do: all_programs
-  def possible_programs({[instruction| rest], prev, acc}, front_program, all_programs) do
+  defp possible_programs({[], _prev, _acc}, _front_program, all_programs), do: all_programs
+  defp possible_programs({[instruction| rest], prev, acc}, front_program, all_programs) do
     {{cmd, value}, counter} = instruction
     case cmd do
       :jmp ->

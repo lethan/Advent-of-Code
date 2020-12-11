@@ -21,7 +21,7 @@ defmodule Day10 do
   defp after_chunk_at_three_steps([]), do: {:cont, []}
   defp after_chunk_at_three_steps(acc), do: {:cont, Enum.reverse(acc), []}
 
-  defp permutations([element | []], acc), do: [[element | acc]]
+  defp permutations([element], acc), do: [[element | acc]]
   defp permutations([element | rest], []), do: permutations(rest, [element])
   defp permutations([element | rest], acc) do
     permutations(rest, acc) ++

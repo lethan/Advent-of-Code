@@ -28,97 +28,72 @@ defmodule Day12 do
   end
 
   defp turn(orientation, 0), do: orientation
-  defp turn(orientation, degrees) do
+  defp turn(orientation = {east, north}, degrees) do
     if degrees < 0 do
       turn(orientation, 360 + degrees)
     else
-      case orientation do
-        :north ->
-          turn(:east, degrees - 90)
-        :east ->
-          turn(:south, degrees - 90)
-        :south ->
-          turn(:west, degrees - 90)
-        :west ->
-          turn(:north, degrees - 90)
-      end
+      turn({north, -east}, degrees - 90)
     end
   end
 
-  defp move({command, number}, {east_west, north_south, orientation}) do
+  defp move({command, number}, {east, north, orientation_east, orientation_north}) do
     case command do
       :north ->
-        {east_west, north_south + number, orientation}
+        {east, north + number, orientation_east, orientation_north}
       :south ->
-        {east_west, north_south - number, orientation}
+        {east, north - number, orientation_east, orientation_north}
       :east ->
-        {east_west + number, north_south, orientation}
+        {east + number, north, orientation_east, orientation_north}
       :west ->
-        {east_west - number, north_south, orientation}
+        {east - number, north, orientation_east, orientation_north}
       :right ->
-        {east_west, north_south, turn(orientation, number)}
+        {new_orientation_east, new_orientation_north} = turn({orientation_east, orientation_north}, number)
+        {east, north, new_orientation_east, new_orientation_north}
       :left ->
-        {east_west, north_south, turn(orientation, -number)}
+        {new_orientation_east, new_orientation_north} = turn({orientation_east, orientation_north}, -number)
+        {east, north, new_orientation_east, new_orientation_north}
       :forward ->
-        case orientation do
-          :north ->
-            {east_west, north_south + number, orientation}
-          :south ->
-            {east_west, north_south - number, orientation}
-          :east ->
-            {east_west + number, north_south, orientation}
-          :west ->
-            {east_west - number, north_south, orientation}
-        end
+        {east + number * orientation_east, north + number * orientation_north, orientation_east, orientation_north}
     end
   end
 
-  defp turn_waypoint(orientation, 0), do: orientation
-  defp turn_waypoint(orientation = {east_west, north_south}, degrees) do
-    if degrees < 0 do
-      turn_waypoint(orientation, 360 + degrees)
-    else
-      turn_waypoint({north_south, -east_west}, degrees - 90)
-    end
-  end
-
-  def move_waypoint({command, number}, {east_west, north_south, waypoint_east_west, waypoint_north_south}) do
+  defp move_waypoint({command, number}, {east, north, waypoint_east, waypoint_north}) do
     case command do
       :north ->
-        {east_west, north_south, waypoint_east_west, waypoint_north_south + number}
+        {east, north, waypoint_east, waypoint_north + number}
       :south ->
-        {east_west, north_south, waypoint_east_west, waypoint_north_south - number}
+        {east, north, waypoint_east, waypoint_north - number}
       :east ->
-        {east_west, north_south, waypoint_east_west + number, waypoint_north_south}
+        {east, north, waypoint_east + number, waypoint_north}
       :west ->
-        {east_west, north_south, waypoint_east_west - number, waypoint_north_south}
+        {east, north, waypoint_east - number, waypoint_north}
       :right ->
-        {new_way_east_west, new_way_north_south} = turn_waypoint({waypoint_east_west, waypoint_north_south}, number)
-        {east_west, north_south, new_way_east_west, new_way_north_south}
+        {new_way_east, new_way_north} = turn({waypoint_east, waypoint_north}, number)
+        {east, north, new_way_east, new_way_north}
       :left ->
-        {new_way_east_west, new_way_north_south} = turn_waypoint({waypoint_east_west, waypoint_north_south}, -number)
-        {east_west, north_south, new_way_east_west, new_way_north_south}
+        {new_way_east, new_way_north} = turn({waypoint_east, waypoint_north}, -number)
+        {east, north, new_way_east, new_way_north}
       :forward ->
-        {east_west + number * waypoint_east_west, north_south + number * waypoint_north_south, waypoint_east_west, waypoint_north_south}
+        {east + number * waypoint_east, north + number * waypoint_north, waypoint_east, waypoint_north}
     end
   end
 
   def task1(input) do
-    {east_west, north_south, _direction} = input
-    |> Enum.reduce({0, 0, :east}, fn command, acc ->
+    {east, north, _orientation_east, _orientation_north} = input
+    |> Enum.reduce({0, 0, 1, 0}, fn command, acc ->
       move(command, acc)
     end)
 
-    abs(east_west) + abs(north_south)
+    abs(east) + abs(north)
   end
 
   def task2(input) do
-    {east_west, north_south, _waypoint_east_west, _waypoint_north_south} = input
+    {east, north, _waypoint_east, _waypoint_north} = input
     |> Enum.reduce({0, 0, 10, 1}, fn command, acc ->
       move_waypoint(command, acc)
     end)
 
-    abs(east_west) + abs(north_south)
+    abs(east) + abs(north)
   end
 end
 

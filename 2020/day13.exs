@@ -22,11 +22,11 @@ defmodule Day13 do
   end
 
   defp find_multiplier([], value, _), do: value
-  defp find_multiplier(list = [{bus, shift} | rest], a, b) do
-    if rem(a + shift, bus) == 0 do
-      find_multiplier(rest, a, bus*b)
+  defp find_multiplier(list = [{bus, shift} | rest], value, multi) do
+    if rem(value + shift, bus) == 0 do
+      find_multiplier(rest, value, bus*multi)
     else
-      find_multiplier(list, a + b, b)
+      find_multiplier(list, value + multi, multi)
     end
   end
 

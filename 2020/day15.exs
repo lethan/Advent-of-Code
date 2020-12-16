@@ -4,13 +4,13 @@ defmodule Day15 do
     last_value = Map.get(game, :last_value)
     seen_last_value = Map.get(game, last_value)
     {new_value, index} = case seen_last_value do
-      [index | [index2 | _]] ->
-        {index - index2, index}
-      [index | _] ->
+      {index, nil} ->
         {0, index}
+      {index, index2} ->
+        {index - index2, index}
     end
     game = Map.put(game, :last_value, new_value)
-    game = Map.update(game, new_value, [index + 1], fn [existing_value | _] -> [index + 1, existing_value] end)
+    game = Map.update(game, new_value, {index + 1, nil}, fn {existing_value, _} -> {index + 1, existing_value} end)
     if index + 1 == stop do
       game
     else
@@ -22,10 +22,10 @@ defmodule Day15 do
     game = %{}
 
     input
-    |> Enum.with_index
+    |> Stream.with_index
     |> Enum.reduce(game, fn {value, index}, acc ->
       game = Map.put(acc, :last_value, value)
-      Map.update(game, value, [index + 1], fn [existing_value | _] -> [index + 1, existing_value] end)
+      Map.update(game, value, {index + 1, nil}, fn {existing_value, _} -> {index + 1, existing_value} end)
     end)
   end
 

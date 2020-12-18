@@ -49,13 +49,13 @@ defmodule Day17 do
 
   def cycle(map, 0), do: map
   def cycle(map, cycles) do
-    neigbors = active_neighbors(map)
+    neighbors = active_neighbors(map)
 
-    new_map = neigbors
+    new_map = neighbors
     |> Enum.filter(&(elem(&1, 1) == 3))
     |> Enum.reduce(%{}, &Map.put(&2, elem(&1, 0), :active))
 
-    neigbors
+    neighbors
     |> Enum.filter(&(elem(&1, 1) == 2))
     |> Enum.reduce(new_map, fn {coord, _}, acc ->
       if Map.get(map, coord) == :active do

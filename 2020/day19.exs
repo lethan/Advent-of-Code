@@ -50,7 +50,7 @@ defmodule Day19 do
       false
     end
   end
-  def match(string, [first | rest]) do
+  def match(string, [first | rest]) when is_function(first, 0) do
     first.()
     |> Enum.reduce(false, fn list, acc ->
       acc or match(string, list ++ rest)
@@ -61,6 +61,7 @@ defmodule Day19 do
     {rules, messages} = input
 
     start = [fn -> Day19.expand(0, rules) end]
+
     messages
     |> Enum.filter(fn x -> match(x, start) end)
     |> Enum.count
@@ -69,13 +70,12 @@ defmodule Day19 do
   def task2(input) do
     {rules, messages} = input
 
-    rule_eight = parse_rule("42 | 42 8")
-    rules = Map.put(rules, 8, rule_eight)
-
-    rule_eleven = parse_rule("42 31 | 42 11 31")
-    rules = Map.put(rules, 11, rule_eleven)
+    rules = rules
+    |> Map.put(8, parse_rule("42 | 42 8"))
+    |> Map.put(11, parse_rule("42 31 | 42 11 31"))
 
     start = [fn -> Day19.expand(0, rules) end]
+
     messages
     |> Enum.filter(fn x -> match(x, start) end)
     |> Enum.count

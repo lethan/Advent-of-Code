@@ -541,7 +541,7 @@ defmodule Day20 do
     |> IO.puts()
   end
 
-  defp task1(tile_map) do
+  def task1(tile_map) do
     dimensions = Tile.Map.dimensions(tile_map)
 
     for x <- [0, dimensions - 1],

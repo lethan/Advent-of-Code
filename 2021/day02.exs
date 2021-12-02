@@ -14,36 +14,50 @@ defmodule Day2 do
 
   def task1(list, position \\ %{horizontal: 0, depth: 0})
 
-  def task1([%{direction: "forward", distance: distance} | tail], %{horizontal: h, depth: d}) do
-    task1(tail, %{horizontal: h + distance, depth: d})
+  def task1(
+        [%{direction: "forward", distance: distance} | tail],
+        position = %{
+          horizontal: h
+        }
+      ) do
+    task1(tail, %{position | horizontal: h + distance})
   end
 
-  def task1([%{direction: "down", distance: distance} | tail], %{horizontal: h, depth: d}) do
-    task1(tail, %{horizontal: h, depth: d + distance})
+  def task1([%{direction: "down", distance: distance} | tail], position = %{depth: d}) do
+    task1(tail, %{position | depth: d + distance})
   end
 
-  def task1([%{direction: "up", distance: distance} | tail], %{horizontal: h, depth: d}) do
-    task1(tail, %{horizontal: h, depth: d - distance})
+  def task1([%{direction: "up", distance: distance} | tail], position = %{depth: d}) do
+    task1(tail, %{position | depth: d - distance})
   end
 
   def task1([], %{horizontal: h, depth: d}), do: h * d
 
   def task2(list, position \\ %{horizontal: 0, depth: 0, aim: 0})
 
-  def task2([%{direction: "forward", distance: distance} | tail], %{
-        horizontal: h,
-        depth: d,
-        aim: a
-      }) do
-    task2(tail, %{horizontal: h + distance, depth: d + distance * a, aim: a})
+  def task2(
+        [%{direction: "forward", distance: distance} | tail],
+        position = %{
+          horizontal: h,
+          depth: d,
+          aim: a
+        }
+      ) do
+    task2(tail, %{position | horizontal: h + distance, depth: d + distance * a})
   end
 
-  def task2([%{direction: "down", distance: distance} | tail], %{horizontal: h, depth: d, aim: a}) do
-    task2(tail, %{horizontal: h, depth: d, aim: a + distance})
+  def task2(
+        [%{direction: "down", distance: distance} | tail],
+        position = %{aim: a}
+      ) do
+    task2(tail, %{position | aim: a + distance})
   end
 
-  def task2([%{direction: "up", distance: distance} | tail], %{horizontal: h, depth: d, aim: a}) do
-    task2(tail, %{horizontal: h, depth: d, aim: a - distance})
+  def task2(
+        [%{direction: "up", distance: distance} | tail],
+        position = %{aim: a}
+      ) do
+    task2(tail, %{position | aim: a - distance})
   end
 
   def task2([], %{horizontal: h, depth: d}), do: h * d

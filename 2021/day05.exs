@@ -22,7 +22,7 @@ defmodule Day5 do
   defp simple_map(list, map \\ %{})
   defp simple_map([], map), do: map
 
-  defp simple_map([%{x1: x1, y1: y1, x2: x2, y2: y2} | tail], map) do
+  defp simple_map([%{x1: x1, y1: y1, x2: x2, y2: y2} | tail], map) when x1 == x2 or y1 == y2 do
     map =
       cond do
         x1 == x2 ->
@@ -34,17 +34,18 @@ defmodule Day5 do
           Enum.reduce(x1..x2, map, fn x, acc ->
             Map.update(acc, {x, y1}, 1, fn value -> value + 1 end)
           end)
-
-        true ->
-          map
       end
 
     simple_map(tail, map)
   end
 
+  defp simple_map([_ | tail], map) do
+    simple_map(tail, map)
+  end
+
   defp diagonal_map([], map), do: map
 
-  defp diagonal_map([%{x1: x1, y1: y1, x2: x2, y2: y2} | tail], map) do
+  defp diagonal_map([%{x1: x1, y1: y1, x2: x2, y2: y2} | tail], map) when x1 != x2 and y1 != y2 do
     map =
       cond do
         (x1 < x2 && y1 < y2) || (x1 > x2 && y1 > y2) ->
@@ -56,11 +57,12 @@ defmodule Day5 do
           Enum.reduce((x1 - x1)..(x2 - x1), map, fn count, acc ->
             Map.update(acc, {x1 + count, y1 - count}, 1, fn value -> value + 1 end)
           end)
-
-        true ->
-          map
       end
 
+    diagonal_map(tail, map)
+  end
+
+  defp diagonal_map([_ | tail], map) do
     diagonal_map(tail, map)
   end
 

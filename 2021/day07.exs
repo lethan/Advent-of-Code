@@ -27,14 +27,10 @@ defmodule Day7 do
     end)
   end
 
-  defp minimum_fuel_usage(input) do
+  defp minimum_fuel_usage(input, cost) do
     {min, max} =
       input
       |> Enum.min_max()
-
-    cost =
-      input
-      |> fuel_cost()
 
     frequencies =
       input
@@ -48,19 +44,24 @@ defmodule Day7 do
   end
 
   def task1(input) do
-    median =
+    {min, max} =
       input
-      |> Enum.sort()
-      |> Enum.at(div(Enum.count(input), 2))
+      |> Enum.min_max()
 
-    input
-    |> Enum.frequencies()
-    |> Enum.reduce(0, fn {position, count}, acc ->
-      acc + abs(position - median) * count
-    end)
+    cost =
+      (min - min)..(max - min)
+      |> Enum.into(%{}, fn x -> {x, x} end)
+
+    minimum_fuel_usage(input, cost)
   end
 
-  def task2(input), do: minimum_fuel_usage(input)
+  def task2(input) do
+    cost =
+      input
+      |> fuel_cost
+
+    minimum_fuel_usage(input, cost)
+  end
 end
 
 input = Day7.import("input_day07.txt")

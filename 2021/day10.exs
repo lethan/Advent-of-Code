@@ -14,7 +14,7 @@ defmodule Day10 do
     validate([find_char], find_char, [find_char | added_chars])
   end
 
-  defp validate([char | rest], find_char, added_chars) when char == find_char do
+  defp validate([find_char | rest], find_char, added_chars) do
     {:ok, rest, added_chars}
   end
 

@@ -86,7 +86,7 @@ defmodule Day13 do
           if Map.get(map, {x, y}) == :dot do
             "#"
           else
-            "."
+            " "
           end
         )
       end)

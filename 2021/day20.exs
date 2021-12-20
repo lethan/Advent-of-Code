@@ -33,7 +33,14 @@ defmodule Day20 do
 
     default_pixel = 0
     next_pixel = map[0]
-    after_pixel = map[next_pixel]
+
+    index =
+      Stream.cycle([next_pixel])
+      |> Stream.take(9)
+      |> Enum.to_list()
+      |> Intager.undigits(2)
+
+    after_pixel = map[index]
 
     next_pixel_function = get_next_default_pixel_function(next_pixel, after_pixel)
     {map, default_pixel, next_pixel_function}

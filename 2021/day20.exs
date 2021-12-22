@@ -38,7 +38,7 @@ defmodule Day20 do
       Stream.cycle([next_pixel])
       |> Stream.take(9)
       |> Enum.to_list()
-      |> Intager.undigits(2)
+      |> Integer.undigits(2)
 
     after_pixel = map[index]
 

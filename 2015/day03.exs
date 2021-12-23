@@ -7,27 +7,39 @@ defmodule AOC2015.Day3 do
     |> String.graphemes()
   end
 
-  defp visit_houses(list, visisted \\ %{{0, 0} => true}, coord \\ {0, 0})
-  defp visit_houses([], visisted, _coord), do: visisted
+  defp visit_houses(list, coords \\ [{0, 0}], visisted \\ %{{0, 0} => true}, counter \\ 0)
+  defp visit_houses([], _coords, visisted, _counter), do: visisted
 
-  defp visit_houses([">" | rest], visisted, {x, y}) do
-    visisted = Map.put(visisted, {x + 1, y}, true)
-    visit_houses(rest, visisted, {x + 1, y})
+  defp visit_houses([">" | rest], coords, visisted, counter) do
+    {x, y} = Enum.at(coords, rem(counter, Enum.count(coords)))
+    new_coord = {x + 1, y}
+    visisted = Map.put(visisted, new_coord, true)
+    coords = List.replace_at(coords, rem(counter, Enum.count(coords)), new_coord)
+    visit_houses(rest, coords, visisted, counter + 1)
   end
 
-  defp visit_houses(["<" | rest], visisted, {x, y}) do
-    visisted = Map.put(visisted, {x - 1, y}, true)
-    visit_houses(rest, visisted, {x - 1, y})
+  defp visit_houses(["<" | rest], coords, visisted, counter) do
+    {x, y} = Enum.at(coords, rem(counter, Enum.count(coords)))
+    new_coord = {x - 1, y}
+    visisted = Map.put(visisted, new_coord, true)
+    coords = List.replace_at(coords, rem(counter, Enum.count(coords)), new_coord)
+    visit_houses(rest, coords, visisted, counter + 1)
   end
 
-  defp visit_houses(["^" | rest], visisted, {x, y}) do
-    visisted = Map.put(visisted, {x, y + 1}, true)
-    visit_houses(rest, visisted, {x, y + 1})
+  defp visit_houses(["^" | rest], coords, visisted, counter) do
+    {x, y} = Enum.at(coords, rem(counter, Enum.count(coords)))
+    new_coord = {x, y + 1}
+    visisted = Map.put(visisted, new_coord, true)
+    coords = List.replace_at(coords, rem(counter, Enum.count(coords)), new_coord)
+    visit_houses(rest, coords, visisted, counter + 1)
   end
 
-  defp visit_houses(["v" | rest], visisted, {x, y}) do
-    visisted = Map.put(visisted, {x, y - 1}, true)
-    visit_houses(rest, visisted, {x, y - 1})
+  defp visit_houses(["v" | rest], coords, visisted, counter) do
+    {x, y} = Enum.at(coords, rem(counter, Enum.count(coords)))
+    new_coord = {x, y - 1}
+    visisted = Map.put(visisted, new_coord, true)
+    coords = List.replace_at(coords, rem(counter, Enum.count(coords)), new_coord)
+    visit_houses(rest, coords, visisted, counter + 1)
   end
 
   def task1(input) do
@@ -37,14 +49,8 @@ defmodule AOC2015.Day3 do
   end
 
   def task2(input) do
-    visited_by_santa =
-      input
-      |> Enum.take_every(2)
-      |> visit_houses()
-
     input
-    |> Enum.drop_every(2)
-    |> visit_houses(visited_by_santa)
+    |> visit_houses([{0, 0}, {0, 0}])
     |> Enum.count()
   end
 end

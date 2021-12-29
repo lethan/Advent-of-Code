@@ -1,4 +1,4 @@
-Code.require_file("priority_queue.ex")
+Code.require_file("priority_queue.ex", "../lib")
 
 defmodule CaveMap do
   @derive {Inspect, only: [:original_size, :dimension]}

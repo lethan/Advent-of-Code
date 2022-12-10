@@ -48,9 +48,15 @@ defmodule AOC2022.Day10 do
   def draw_crt(sampling) do
     1..240
     |> Enum.reduce("", fn cycle, acc ->
-      [{_, x} | _rest] =
+      x =
         sampling
-        |> Enum.reject(fn {sample_cycle, _} -> cycle < sample_cycle end)
+        |> Enum.reduce_while(0, fn {sample_cycle, x}, acc ->
+          if cycle < sample_cycle do
+            {:cont, acc}
+          else
+            {:halt, x}
+          end
+        end)
 
       acc <>
         case rem(cycle - 1, 40) do

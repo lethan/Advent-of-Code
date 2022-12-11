@@ -85,7 +85,7 @@ defmodule AOC2022.Day11 do
   defp value_or_var("old"), do: fn n -> n end
   defp value_or_var(number), do: fn _ -> String.to_integer(number) end
 
-  def play_round(monkeys, with_rem \\ false) do
+  def play_round(monkeys, with_modulo \\ false) do
     Map.keys(monkeys)
     |> Enum.sort()
     |> Enum.reduce(monkeys, fn monkey, acc ->
@@ -100,7 +100,9 @@ defmodule AOC2022.Day11 do
       (front ++ Enum.reverse(back))
       |> Enum.reduce(acc, fn number, acc2 ->
         new_number =
-          if with_rem, do: rem(operation.(number), with_rem), else: div(operation.(number), 3)
+          if with_modulo,
+            do: rem(operation.(number), with_modulo),
+            else: div(operation.(number), 3)
 
         new_monkey = control.(new_number)
         {front, back} = get_in(acc2, [new_monkey, :items])
@@ -125,14 +127,14 @@ defmodule AOC2022.Day11 do
   end
 
   def task2(input) do
-    divisor =
+    modulo =
       input
       |> Enum.map(fn {_, %{divisor: divisor}} -> divisor end)
       |> Enum.product()
 
     1..10_000
     |> Enum.reduce(input, fn _, acc ->
-      play_round(acc, divisor)
+      play_round(acc, modulo)
     end)
     |> Enum.map(fn {_, %{inspections: inspections}} -> inspections end)
     |> Enum.sort(&(&1 >= &2))

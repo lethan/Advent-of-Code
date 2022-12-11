@@ -46,34 +46,36 @@ defmodule AOC2022.Day10 do
   end
 
   def draw_crt(sampling) do
+    sampling = Enum.reverse(sampling)
+
     1..240
-    |> Enum.reduce("", fn cycle, acc ->
-      x =
-        sampling
-        |> Enum.reduce_while(0, fn {sample_cycle, x}, acc ->
-          if cycle < sample_cycle do
-            {:cont, acc}
-          else
-            {:halt, x}
+    |> Enum.reduce({"", sampling}, fn cycle, {acc, sampling} ->
+      {dropped, sampling} =
+        Enum.split_while(sampling, fn {sample_cycle, _} -> sample_cycle <= cycle end)
+
+      {sample_cycle, x} = List.last(dropped)
+      sampling = [{sample_cycle, x} | sampling]
+
+      acc =
+        acc <>
+          case rem(cycle - 1, 40) do
+            val when val in (x - 1)..(x + 1) ->
+              "#"
+
+            _ ->
+              " "
+          end <>
+          case rem(cycle, 40) do
+            0 ->
+              "\n"
+
+            _ ->
+              ""
           end
-        end)
 
-      acc <>
-        case rem(cycle - 1, 40) do
-          val when val in (x - 1)..(x + 1) ->
-            "#"
-
-          _ ->
-            " "
-        end <>
-        case rem(cycle, 40) do
-          0 ->
-            "\n"
-
-          _ ->
-            ""
-        end
+      {acc, sampling}
     end)
+    |> elem(0)
   end
 
   def task1(input) do

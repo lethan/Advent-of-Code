@@ -35,4 +35,8 @@ defmodule PriorityQueue do
 
     {priority, element, %__MODULE__{queue: new_queue}}
   end
+
+  def empty?(%__MODULE__{queue: queue}) do
+    :gb_trees.is_empty(queue)
+  end
 end

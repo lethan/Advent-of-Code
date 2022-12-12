@@ -40,20 +40,32 @@ defmodule AOC2022.Day12 do
     {map, start, destination}
   end
 
-  def shortest_path(map, start, destination) do
+  def shortest_path(
+        map,
+        start,
+        destination,
+        allow_visit \\ fn current_height, next_height -> next_height <= current_height + 1 end
+      )
+
+  def shortest_path(map, start, destination, allow_visit) when is_tuple(destination) do
+    shortest_path(map, start, fn coord, _map -> coord == destination end, allow_visit)
+  end
+
+  def shortest_path(map, start, destination, allow_visit) do
     shortest_path(
       PriorityQueue.new() |> PriorityQueue.insert(0, start),
       MapSet.new([start]),
       map,
-      destination
+      destination,
+      allow_visit
     )
   end
 
-  def shortest_path(queue = %PriorityQueue{}, visited, map, destination) do
+  def shortest_path(queue = %PriorityQueue{}, visited, map, destination, allow_visit) do
     {steps, coord = {x, y}, new_queue} = PriorityQueue.get(queue)
     current_height = Map.get(map, coord)
 
-    case coord == destination do
+    case destination.(coord, map) do
       true ->
         steps
 
@@ -70,12 +82,16 @@ defmodule AOC2022.Day12 do
             case MapSet.member?(visited, visit_coord) do
               false ->
                 case Map.get(map, visit_coord) do
-                  height when not is_nil(height) and height <= current_height + 1 ->
-                    {PriorityQueue.insert(current_queue, steps + 1, visit_coord),
-                     MapSet.put(current_visisted, visit_coord)}
-
-                  _ ->
+                  nil ->
                     acc
+
+                  height ->
+                    if allow_visit.(current_height, height) do
+                      {PriorityQueue.insert(current_queue, steps + 1, visit_coord),
+                       MapSet.put(current_visisted, visit_coord)}
+                    else
+                      acc
+                    end
                 end
 
               true ->
@@ -83,54 +99,7 @@ defmodule AOC2022.Day12 do
             end
           end)
 
-        shortest_path(new_queue, visited, map, destination)
-    end
-  end
-
-  def find_shortest_start_path(map, start, find_elevation \\ 0) do
-    find_shortest_start_path(
-      PriorityQueue.new() |> PriorityQueue.insert(0, start),
-      MapSet.new([start]),
-      map,
-      find_elevation
-    )
-  end
-
-  def find_shortest_start_path(queue = %PriorityQueue{}, visited, map, find_elevation) do
-    {steps, coord = {x, y}, new_queue} = PriorityQueue.get(queue)
-    current_height = Map.get(map, coord)
-
-    case current_height == find_elevation do
-      true ->
-        steps
-
-      false ->
-        {new_queue, visited} =
-          for(
-            diff_x <- -1..1,
-            diff_y <- -1..1,
-            abs(diff_x) != abs(diff_y),
-            do: {x + diff_x, y + diff_y}
-          )
-          |> Enum.reduce({new_queue, visited}, fn visit_coord,
-                                                  acc = {current_queue, current_visisted} ->
-            case MapSet.member?(visited, visit_coord) do
-              false ->
-                case Map.get(map, visit_coord) do
-                  height when not is_nil(height) and height >= current_height - 1 ->
-                    {PriorityQueue.insert(current_queue, steps + 1, visit_coord),
-                     MapSet.put(current_visisted, visit_coord)}
-
-                  _ ->
-                    acc
-                end
-
-              true ->
-                acc
-            end
-          end)
-
-        find_shortest_start_path(new_queue, visited, map, find_elevation)
+        shortest_path(new_queue, visited, map, destination, allow_visit)
     end
   end
 
@@ -139,7 +108,10 @@ defmodule AOC2022.Day12 do
   end
 
   def task2({map, _start, destination}) do
-    find_shortest_start_path(map, destination)
+    start = destination
+    destination = fn coord, map -> Map.get(map, coord) == 0 end
+    allow_visit = fn current_height, next_height -> next_height >= current_height - 1 end
+    shortest_path(map, start, destination, allow_visit)
   end
 end
 

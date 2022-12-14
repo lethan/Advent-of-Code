@@ -37,14 +37,7 @@ defmodule AOC2022.Day14 do
       |> Enum.sort(:desc)
       |> List.first()
 
-    floor =
-      if with_floor do
-        bounds + 2
-      else
-        false
-      end
-
-    pour_sand(map, start_position, bounds + 1, 0, start_position, floor)
+    pour_sand(map, start_position, bounds + 1, 0, start_position, with_floor)
   end
 
   def pour_sand(_map, {_x, y}, out_of_bounds, sand_number, _start_position, false)
@@ -57,24 +50,24 @@ defmodule AOC2022.Day14 do
     sand_number
   end
 
-  def pour_sand(map, {x, y}, out_of_bounds, sand_number, start_position, floor) do
+  def pour_sand(map, {x, y}, out_of_bounds, sand_number, start_position, with_floor) do
     cond do
-      is_integer(floor) and y + 1 == floor ->
+      with_floor and y == out_of_bounds ->
         map = Map.put(map, {x, y}, :sand)
-        pour_sand(map, start_position, out_of_bounds, sand_number + 1, start_position, floor)
+        pour_sand(map, start_position, out_of_bounds, sand_number + 1, start_position, with_floor)
 
       is_nil(Map.get(map, {x, y + 1})) ->
-        pour_sand(map, {x, y + 1}, out_of_bounds, sand_number, start_position, floor)
+        pour_sand(map, {x, y + 1}, out_of_bounds, sand_number, start_position, with_floor)
 
       is_nil(Map.get(map, {x - 1, y + 1})) ->
-        pour_sand(map, {x - 1, y + 1}, out_of_bounds, sand_number, start_position, floor)
+        pour_sand(map, {x - 1, y + 1}, out_of_bounds, sand_number, start_position, with_floor)
 
       is_nil(Map.get(map, {x + 1, y + 1})) ->
-        pour_sand(map, {x + 1, y + 1}, out_of_bounds, sand_number, start_position, floor)
+        pour_sand(map, {x + 1, y + 1}, out_of_bounds, sand_number, start_position, with_floor)
 
       true ->
         map = Map.put(map, {x, y}, :sand)
-        pour_sand(map, start_position, out_of_bounds, sand_number + 1, start_position, floor)
+        pour_sand(map, start_position, out_of_bounds, sand_number + 1, start_position, with_floor)
     end
   end
 

@@ -92,7 +92,7 @@ defmodule AOC2022.Day21 do
           {:unknown, value, :equal} ->
             needed_value(monkey1, new_monkey_values, value)
 
-          {value, :unknown, :multiply} ->
+          {value, :unknown, :equal} ->
             needed_value(monkey2, new_monkey_values, value)
         end
     end

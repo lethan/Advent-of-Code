@@ -18,18 +18,18 @@ defmodule AOC2023.Day1 do
     end)
   end
 
-  def parse_text_numbers(list, result \\ [])
-  def parse_text_numbers(["o", "n", "e" | rest], result), do: parse_text_numbers(["e" | rest], [1 | result])
-  def parse_text_numbers(["t", "w", "o" | rest], result), do: parse_text_numbers(["o" | rest], [2 | result])
-  def parse_text_numbers(["t", "h", "r", "e", "e" | rest], result), do: parse_text_numbers(["e" | rest], [3 | result])
-  def parse_text_numbers(["f", "o", "u", "r" | rest], result), do: parse_text_numbers(rest, [4 | result])
-  def parse_text_numbers(["f", "i", "v", "e" | rest], result), do: parse_text_numbers(["e" | rest], [5 | result])
-  def parse_text_numbers(["s", "i", "x" | rest], result), do: parse_text_numbers(rest, [6 | result])
-  def parse_text_numbers(["s", "e", "v", "e", "n" | rest], result), do: parse_text_numbers(rest, [7 | result])
-  def parse_text_numbers(["e", "i", "g", "h", "t" | rest], result), do: parse_text_numbers(["t" | rest], [8 | result])
-  def parse_text_numbers(["n", "i", "n", "e" | rest], result), do: parse_text_numbers(["e" | rest], [9 | result])
-  def parse_text_numbers([val | rest], result), do: parse_text_numbers(rest, [val | result])
-  def parse_text_numbers([], result), do: Enum.reverse(result)
+  defp parse_text_numbers(list, result \\ [])
+  defp parse_text_numbers(["o", "n", "e" | rest], result), do: parse_text_numbers(["e" | rest], [1 | result])
+  defp parse_text_numbers(["t", "w", "o" | rest], result), do: parse_text_numbers(["o" | rest], [2 | result])
+  defp parse_text_numbers(["t", "h", "r", "e", "e" | rest], result), do: parse_text_numbers(["e" | rest], [3 | result])
+  defp parse_text_numbers(["f", "o", "u", "r" | rest], result), do: parse_text_numbers(rest, [4 | result])
+  defp parse_text_numbers(["f", "i", "v", "e" | rest], result), do: parse_text_numbers(["e" | rest], [5 | result])
+  defp parse_text_numbers(["s", "i", "x" | rest], result), do: parse_text_numbers(rest, [6 | result])
+  defp parse_text_numbers(["s", "e", "v", "e", "n" | rest], result), do: parse_text_numbers(rest, [7 | result])
+  defp parse_text_numbers(["e", "i", "g", "h", "t" | rest], result), do: parse_text_numbers(["t" | rest], [8 | result])
+  defp parse_text_numbers(["n", "i", "n", "e" | rest], result), do: parse_text_numbers(["e" | rest], [9 | result])
+  defp parse_text_numbers([val | rest], result), do: parse_text_numbers(rest, [val | result])
+  defp parse_text_numbers([], result), do: Enum.reverse(result)
 
   defp first_and_last(list) do
     Enum.reduce(list, {nil, nil}, fn val, {first, last} = result ->

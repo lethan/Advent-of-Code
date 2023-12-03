@@ -1,4 +1,4 @@
-defmodule AOC2023.Day1 do
+defmodule AOC.Year2023.Day1 do
   def import(file) do
     {:ok, content} = File.read(file)
 
@@ -32,7 +32,7 @@ defmodule AOC2023.Day1 do
   defp parse_text_numbers([], result), do: Enum.reverse(result)
 
   defp first_and_last(list) do
-    Enum.reduce(list, {nil, nil}, fn val, {first, last} = result ->
+    Enum.reduce(list, {nil, nil}, fn val, {first, _last} = result ->
       case {val, first} do
         {num, nil} when is_integer(num) ->
           {num, num}
@@ -60,12 +60,12 @@ defmodule AOC2023.Day1 do
   end
 end
 
-input = AOC2023.Day1.import("input_day01.txt")
+# input = AOC2023.Day1.import("input_day01.txt")
 
-input
-|> AOC2023.Day1.task1()
-|> IO.puts()
+# input
+# |> AOC2023.Day1.task1()
+# |> IO.puts()
 
-input
-|> AOC2023.Day1.task2()
-|> IO.puts()
+# input
+# |> AOC2023.Day1.task2()
+# |> IO.puts()

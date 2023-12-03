@@ -1,4 +1,4 @@
-defmodule Zipper do
+defmodule AOC.Zipper do
   defstruct(front: [], back: [])
 
   def new() do
@@ -43,31 +43,31 @@ defmodule Zipper do
   def empty?(%__MODULE__{}), do: false
 end
 
-defimpl Enumerable, for: Zipper do
-  def count(%Zipper{front: front, back: back}), do: {:ok, length(front) + length(back)}
+defimpl Enumerable, for: AOC.Zipper do
+  def count(%AOC.Zipper{front: front, back: back}), do: {:ok, length(front) + length(back)}
 
-  def member?(%Zipper{front: [], back: []}, _value), do: {:ok, false}
+  def member?(%AOC.Zipper{front: [], back: []}, _value), do: {:ok, false}
   def member?(_zipper, _value), do: {:error, __MODULE__}
 
-  def slice(%Zipper{front: [], back: []}), do: {:ok, 0, fn _, _, _ -> Zipper.new() end}
+  def slice(%AOC.Zipper{front: [], back: []}), do: {:ok, 0, fn _, _, _ -> AOC.Zipper.new() end}
   def slice(_zipper), do: {:error, __MODULE__}
 
   def reduce(_zipper, {:halt, acc}, _fun), do: {:halted, acc}
   def reduce(zipper, {:suspend, acc}, fun), do: {:suspended, acc, &reduce(zipper, &1, fun)}
-  def reduce(%Zipper{front: [], back: []}, {:cont, acc}, _fun), do: {:done, acc}
+  def reduce(%AOC.Zipper{front: [], back: []}, {:cont, acc}, _fun), do: {:done, acc}
 
   def reduce(zipper, {:cont, acc}, fun) do
-    {value, rest} = Zipper.dequeue(zipper)
+    {value, rest} = AOC.Zipper.dequeue(zipper)
     reduce(rest, fun.(value, acc), fun)
   end
 end
 
-defimpl Collectable, for: Zipper do
+defimpl Collectable, for: AOC.Zipper do
   def into(zipper) do
     {zipper, &collector_fun/2}
   end
 
-  defp collector_fun(zipper, {:cont, elem}), do: Zipper.enqueue(zipper, elem)
+  defp collector_fun(zipper, {:cont, elem}), do: AOC.Zipper.enqueue(zipper, elem)
   defp collector_fun(zipper, :done), do: zipper
   defp collector_fun(_zipper, :halt), do: :ok
 end

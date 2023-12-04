@@ -9,25 +9,45 @@ defmodule AOC.Year2023.Day1 do
       |> String.graphemes()
       |> Enum.map(fn x ->
         case Integer.parse(x) do
-        {num, ""} ->
-          num
+          {num, ""} ->
+            num
 
-        :error -> x
+          :error ->
+            x
         end
       end)
     end)
   end
 
   defp parse_text_numbers(list, result \\ [])
-  defp parse_text_numbers(["o", "n", "e" | rest], result), do: parse_text_numbers(["e" | rest], [1 | result])
-  defp parse_text_numbers(["t", "w", "o" | rest], result), do: parse_text_numbers(["o" | rest], [2 | result])
-  defp parse_text_numbers(["t", "h", "r", "e", "e" | rest], result), do: parse_text_numbers(["e" | rest], [3 | result])
-  defp parse_text_numbers(["f", "o", "u", "r" | rest], result), do: parse_text_numbers(rest, [4 | result])
-  defp parse_text_numbers(["f", "i", "v", "e" | rest], result), do: parse_text_numbers(["e" | rest], [5 | result])
-  defp parse_text_numbers(["s", "i", "x" | rest], result), do: parse_text_numbers(rest, [6 | result])
-  defp parse_text_numbers(["s", "e", "v", "e", "n" | rest], result), do: parse_text_numbers(rest, [7 | result])
-  defp parse_text_numbers(["e", "i", "g", "h", "t" | rest], result), do: parse_text_numbers(["t" | rest], [8 | result])
-  defp parse_text_numbers(["n", "i", "n", "e" | rest], result), do: parse_text_numbers(["e" | rest], [9 | result])
+
+  defp parse_text_numbers(["o", "n", "e" | rest], result),
+    do: parse_text_numbers(["e" | rest], [1 | result])
+
+  defp parse_text_numbers(["t", "w", "o" | rest], result),
+    do: parse_text_numbers(["o" | rest], [2 | result])
+
+  defp parse_text_numbers(["t", "h", "r", "e", "e" | rest], result),
+    do: parse_text_numbers(["e" | rest], [3 | result])
+
+  defp parse_text_numbers(["f", "o", "u", "r" | rest], result),
+    do: parse_text_numbers(rest, [4 | result])
+
+  defp parse_text_numbers(["f", "i", "v", "e" | rest], result),
+    do: parse_text_numbers(["e" | rest], [5 | result])
+
+  defp parse_text_numbers(["s", "i", "x" | rest], result),
+    do: parse_text_numbers(rest, [6 | result])
+
+  defp parse_text_numbers(["s", "e", "v", "e", "n" | rest], result),
+    do: parse_text_numbers(rest, [7 | result])
+
+  defp parse_text_numbers(["e", "i", "g", "h", "t" | rest], result),
+    do: parse_text_numbers(["t" | rest], [8 | result])
+
+  defp parse_text_numbers(["n", "i", "n", "e" | rest], result),
+    do: parse_text_numbers(["e" | rest], [9 | result])
+
   defp parse_text_numbers([val | rest], result), do: parse_text_numbers(rest, [val | result])
   defp parse_text_numbers([], result), do: Enum.reverse(result)
 
@@ -36,8 +56,10 @@ defmodule AOC.Year2023.Day1 do
       case {val, first} do
         {num, nil} when is_integer(num) ->
           {num, num}
+
         {num, _} when is_integer(num) ->
           {first, num}
+
         _ ->
           result
       end
@@ -47,7 +69,7 @@ defmodule AOC.Year2023.Day1 do
   def task1(input) do
     input
     |> Enum.map(&first_and_last/1)
-    |> Enum.map(fn {a, b} -> 10*a + b end)
+    |> Enum.map(fn {a, b} -> 10 * a + b end)
     |> Enum.sum()
   end
 
@@ -55,7 +77,7 @@ defmodule AOC.Year2023.Day1 do
     input
     |> Enum.map(&parse_text_numbers/1)
     |> Enum.map(&first_and_last/1)
-    |> Enum.map(fn {a, b} -> 10*a + b end)
+    |> Enum.map(fn {a, b} -> 10 * a + b end)
     |> Enum.sum()
   end
 end

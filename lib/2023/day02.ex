@@ -10,27 +10,28 @@ defmodule AOC.Year2023.Day2 do
       [_, id] = String.split(game, " ")
       id = String.to_integer(id)
 
-      plays = String.split(plays, "; ")
-      |> Enum.map(fn x ->
-        x
-        |> String.split(", ")
-        |> Enum.map(fn t ->
-          [count, color] = String.split(t, " ")
-          {String.to_atom(color), String.to_integer(count)}
+      plays =
+        String.split(plays, "; ")
+        |> Enum.map(fn x ->
+          x
+          |> String.split(", ")
+          |> Enum.map(fn t ->
+            [count, color] = String.split(t, " ")
+            {String.to_atom(color), String.to_integer(count)}
+          end)
         end)
-      end)
 
       {id, plays}
     end)
   end
 
   defp possible_game(allowed, {_id, plays}) do
-     Enum.reduce_while(allowed, true, fn {color, amount}, _ ->
+    Enum.reduce_while(allowed, true, fn {color, amount}, _ ->
       if Enum.any?(plays, fn play ->
-        Enum.any?(play, fn {play_color, play_amount} ->
-          if play_color == color and play_amount > amount, do: true, else: false
-        end)
-      end) do
+           Enum.any?(play, fn {play_color, play_amount} ->
+             if play_color == color and play_amount > amount, do: true, else: false
+           end)
+         end) do
         {:halt, false}
       else
         {:cont, true}
@@ -55,7 +56,9 @@ defmodule AOC.Year2023.Day2 do
   def task2(input) do
     input
     |> Enum.map(&minimum_set/1)
-    |> Enum.reduce(0, fn %{green: green, blue: blue, red: red}, acc -> acc + green * blue * red end)
+    |> Enum.reduce(0, fn %{green: green, blue: blue, red: red}, acc ->
+      acc + green * blue * red
+    end)
   end
 end
 

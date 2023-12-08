@@ -41,6 +41,10 @@ defmodule AOC.Zipper do
 
   def empty?(%__MODULE__{front: [], back: []}), do: true
   def empty?(%__MODULE__{}), do: false
+
+  def size(%__MODULE__{front: front, back: back}) do
+    length(front) + length(back)
+  end
 end
 
 defimpl Enumerable, for: AOC.Zipper do

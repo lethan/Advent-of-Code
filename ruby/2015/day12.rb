@@ -1,6 +1,6 @@
 require 'json'
 
-file = File.open('input_day12.txt', 'r')
+file = File.open('../../input/2015/input_day12.txt', 'r')
 while line = file.gets
   input = JSON.parse(line)
 end

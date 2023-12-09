@@ -1,4 +1,4 @@
-file = File.open("input_day02.txt", "r")
+file = File.open("../../input/2015/input_day02.txt", "r")
 
 area = 0
 ribbon = 0

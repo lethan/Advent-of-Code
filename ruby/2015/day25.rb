@@ -1,4 +1,4 @@
-file = File.open('input_day25.txt', 'r')
+file = File.open('../../input/2015/input_day25.txt', 'r')
 row = 0
 column = 0
 while line = file.gets

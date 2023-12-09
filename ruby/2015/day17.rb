@@ -1,4 +1,4 @@
-file = File.open('input_day17.txt', 'r')
+file = File.open('../../input/2015/input_day17.txt', 'r')
 containers = []
 while line = file.gets
   containers << line.to_i

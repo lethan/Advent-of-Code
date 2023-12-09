@@ -1,4 +1,4 @@
-file = File.open("input_day03.txt", "r")
+file = File.open("../../input/2015/input_day03.txt", "r")
 input = []
 while line = file.gets
   input += line.split('')

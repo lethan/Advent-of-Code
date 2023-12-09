@@ -1,7 +1,7 @@
 lights = Array.new(1000) { Array.new(1000, false) }
 lights2 = Array.new(1000) { Array.new(1000, 0) }
 
-file = File.open('input_day06.txt', 'r')
+file = File.open('../../input/2015/input_day06.txt', 'r')
 while line = file.gets
   match = /(toggle|turn on|turn off) (\d+),(\d+) through (\d+),(\d+)/.match(line)
   (match[2].to_i).upto(match[4].to_i) do |x|

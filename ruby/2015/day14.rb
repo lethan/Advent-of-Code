@@ -1,5 +1,5 @@
 finish_line = 2503
-file = File.open('input_day14.txt', 'r')
+file = File.open('../../input/2015/input_day14.txt', 'r')
 reindeers = Hash.new
 while line = file.gets
   match = /([a-zA-Z]+) can fly (\d+) km\/s for (\d+) seconds, but then must rest for (\d+) seconds./.match(line)

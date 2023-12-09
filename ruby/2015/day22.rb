@@ -96,7 +96,7 @@ def efficient_battle(magics, active_magics, mana_left, hit_points, boss_damage, 
   best_score
 end
 
-file = File.open('input_day22.txt', 'r')
+file = File.open('../../input/2015/input_day22.txt', 'r')
 boss_hit_points = 0
 boss_damage = 0
 while line = file.gets

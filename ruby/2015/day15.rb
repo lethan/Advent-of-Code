@@ -1,6 +1,6 @@
 ingredients = Hash.new
 
-file = File.open('input_day15.txt', 'r')
+file = File.open('../../input/2015/input_day15.txt', 'r')
 while line = file.gets
   match = /([a-zA-Z]+): capacity (-?\d+), durability (-?\d+), flavor (-?\d+), texture (-?\d+), calories (-?\d+)/.match(line)
   ingredients.merge!( match[1] => {

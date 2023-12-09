@@ -83,7 +83,7 @@ class Not
 end
 
 input = []
-file = File.open('input_day07.txt', 'r')
+file = File.open('../../input/2015/input_day07.txt', 'r')
 while line = file.gets
   input << line
 end

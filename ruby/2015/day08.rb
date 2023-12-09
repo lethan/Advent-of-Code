@@ -1,4 +1,4 @@
-file = File.open('input_day08.txt', 'r')
+file = File.open('../../input/2015/input_day08.txt', 'r')
 code_length = 0
 memory_length = 0
 encoded_length = 0

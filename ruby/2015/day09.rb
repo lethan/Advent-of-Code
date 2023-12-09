@@ -1,4 +1,4 @@
-file = File.open('input_day09.txt', 'r')
+file = File.open('../../input/2015/input_day09.txt', 'r')
 distances = Hash.new
 
 while line = file.gets

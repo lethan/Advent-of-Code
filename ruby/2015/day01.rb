@@ -1,4 +1,4 @@
-file = File.open("input_day01.txt", "r")
+file = File.open("../../input/2015/input_day01.txt", "r")
 floor = 0
 step = 0
 position = 0

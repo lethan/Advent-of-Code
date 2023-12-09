@@ -1,4 +1,4 @@
-file = File.open('input_day13.txt', 'r')
+file = File.open('../../input/2015/input_day13.txt', 'r')
 happiness_index = Hash.new
 while line = file.gets
   match = /([a-zA-Z]+) would (gain|lose) (\d+) happiness units by sitting next to ([a-zA-Z]+)./.match(line)

@@ -38,7 +38,7 @@ hit_points = 100
 boss_hit_point = 0
 boss_damage = 0
 boss_armor = 0
-file = File.open('input_day21.txt', 'r')
+file = File.open('../../input/2015/input_day21.txt', 'r')
 while line = file.gets
   input = line.split(': ')
   case input[0]

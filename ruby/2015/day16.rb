@@ -1,6 +1,6 @@
 ticker = {children: 3, cats: 7, samoyeds: 2, pomeranians: 3, akitas: 0, vizslas: 0, goldfish: 5, trees: 3, cars: 2, perfumes: 1}
 
-file = File.open('input_day16.txt', 'r')
+file = File.open('../../input/2015/input_day16.txt', 'r')
 input = []
 while line = file.gets
   input << line

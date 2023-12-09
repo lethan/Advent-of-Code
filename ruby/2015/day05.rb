@@ -37,7 +37,7 @@ def nice2?(input)
   one_between && two_alike
 end
 
-file = File.open('input_day05.txt', 'r')
+file = File.open('../../input/2015/input_day05.txt', 'r')
 nice = 0
 nice2 = 0
 while line = file.gets

@@ -1,4 +1,4 @@
-file = File.open('input_day19.txt', 'r')
+file = File.open('../../input/2015/input_day19.txt', 'r')
 transformations = Hash.new
 reverse_transformations = Hash.new
 input = ""

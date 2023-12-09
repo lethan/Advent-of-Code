@@ -1,4 +1,4 @@
-file = File.open('input_day24.txt', 'r')
+file = File.open('../../input/2015/input_day24.txt', 'r')
 packets = []
 while line = file.gets
   packets << line.to_i

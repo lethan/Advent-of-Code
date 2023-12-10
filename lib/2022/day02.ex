@@ -29,7 +29,7 @@ defmodule AOC.Year2022.Day2 do
     play(rest, strategy, score)
   end
 
-  defp winner_points(oppenent_play, my_play) when oppenent_play == my_play, do: 3
+  defp winner_points(play, play), do: 3
   defp winner_points(:A, :B), do: 6
   defp winner_points(:B, :C), do: 6
   defp winner_points(:C, :A), do: 6

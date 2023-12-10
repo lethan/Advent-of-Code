@@ -13,7 +13,7 @@ defmodule AOC.Year2023.Day9 do
 
   defp diff(list, result \\ [])
   defp diff([_], result), do: Enum.reverse(result)
-  defp diff([a, b | rest], result), do: diff([b | rest], [(b - a) | result])
+  defp diff([a, b | rest], result), do: diff([b | rest], [b - a | result])
 
   defp next_value(list) do
     if Enum.all?(list, &(&1 == 0)) do

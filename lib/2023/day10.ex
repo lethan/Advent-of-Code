@@ -32,7 +32,7 @@ defmodule AOC.Year2023.Day10 do
     map
   end
 
-  def find_furthest(map) do
+  defp find_furthest(map) do
     {{x, y}, _} =
       map
       |> Enum.find(fn {_, v} -> v == :start end)
@@ -66,11 +66,11 @@ defmodule AOC.Year2023.Day10 do
     step(step_a, step_b, map)
   end
 
-  def step(a, b, map, steps \\ 1)
-  def step({step, _}, {step, _}, _map, steps), do: steps
-  def step({step_a, step_b}, {step_b, step_a}, _amp, steps), do: steps - 1
+  defp step(a, b, map, steps \\ 1)
+  defp step({step, _}, {step, _}, _map, steps), do: steps
+  defp step({step_a, step_b}, {step_b, step_a}, _amp, steps), do: steps - 1
 
-  def step(a, b, map, steps) do
+  defp step(a, b, map, steps) do
     [next_a, next_b] =
       [a, b]
       |> Enum.map(&next_point(elem(&1, 0), elem(&1, 1), map))
@@ -112,7 +112,7 @@ defmodule AOC.Year2023.Day10 do
     end
   end
 
-  def border(map) do
+  defp border(map) do
     {{x, y}, _} =
       map
       |> Enum.find(fn {_, v} -> v == :start end)
@@ -158,12 +158,12 @@ defmodule AOC.Year2023.Day10 do
     find_border(step_a, step_b, map, %{{x, y} => type})
   end
 
-  def find_border({step, _}, {step, _}, map, border),
+  defp find_border({step, _}, {step, _}, map, border),
     do: Map.put(border, step, Map.get(map, step))
 
-  def find_border({step_a, step_b}, {step_b, step_a}, _map, border), do: border
+  defp find_border({step_a, step_b}, {step_b, step_a}, _map, border), do: border
 
-  def find_border(a = {step_a, _prev_a}, b = {step_b, _prev_b}, map, border) do
+  defp find_border(a = {step_a, _prev_a}, b = {step_b, _prev_b}, map, border) do
     border =
       [step_a, step_b]
       |> Enum.reduce(border, &Map.put(&2, &1, Map.get(map, &1)))
@@ -175,7 +175,7 @@ defmodule AOC.Year2023.Day10 do
     find_border(next_a, next_b, map, border)
   end
 
-  def enclosed_tiles(border) do
+  defp enclosed_tiles(border) do
     {_, _, _, inside} =
       border
       |> Enum.sort(fn {{x1, y1}, _}, {{x2, y2}, _} ->

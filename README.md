@@ -1,4 +1,4 @@
-# AOC
+# AoC
 
 **TODO: Add description**
 

@@ -1,4 +1,4 @@
-defmodule AOC.PriorityQueue do
+defmodule AoC.PriorityQueue do
   defstruct queue: nil
 
   def new() do

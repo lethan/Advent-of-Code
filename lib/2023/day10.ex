@@ -193,15 +193,13 @@ defmodule AoC.Year2023.Day10 do
             false
         end
       end)
-      |> Enum.reduce({-1, -1, 0, 0}, fn {{x, y}, type},
-                                        {last_y, last_x, currently_inside, inside_counter} ->
+      |> Enum.reduce({-1, -1, 0, 0}, fn {{x, y}, type}, {last_y, last_x, currently_inside, inside_counter} ->
         cond do
           y != last_y and type in [:north_south, :north_west, :north_east] ->
             {y, x, 1, inside_counter}
 
           type in [:north_south, :north_west, :north_east] ->
-            {y, x, rem(currently_inside + 1, 2),
-             inside_counter + currently_inside * (x - last_x - 1)}
+            {y, x, rem(currently_inside + 1, 2), inside_counter + currently_inside * (x - last_x - 1)}
 
           true ->
             {y, x, currently_inside, inside_counter + currently_inside * (x - last_x - 1)}

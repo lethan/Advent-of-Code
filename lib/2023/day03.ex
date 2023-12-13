@@ -9,11 +9,7 @@ defmodule AoC.Year2023.Day3 do
         {map, values, symbols, current_number, _, is_number} =
           String.graphemes(str)
           |> Enum.reduce({map, values, symbols, current_number, 0, false}, fn graph,
-                                                                              {map, values,
-                                                                               symbols,
-                                                                               current_number,
-                                                                               column,
-                                                                               is_number} ->
+                                                                              {map, values, symbols, current_number, column, is_number} ->
             case graph do
               "." ->
                 current_number = if is_number, do: current_number + 1, else: current_number

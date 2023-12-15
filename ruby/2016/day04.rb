@@ -1,4 +1,4 @@
-file = File.open('input_day04.txt', 'r')
+file = File.open('../../input/2016/input_day04.txt', 'r')
 sector_sum = 0
 storage = 0
 while line = file.gets

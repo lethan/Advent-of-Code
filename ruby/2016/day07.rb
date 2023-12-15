@@ -1,4 +1,4 @@
-file = File.open('input_day07.txt', 'r')
+file = File.open('../../input/2016/input_day07.txt', 'r')
 valid_tls = 0
 valid_ssl = 0
 

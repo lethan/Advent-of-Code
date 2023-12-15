@@ -1,7 +1,7 @@
 require 'english'
 
 lines = []
-file = File.open('input_day21.txt', 'r')
+file = File.open('../../input/2016/input_day21.txt', 'r')
 while (input = file.gets)
   lines << input
 end

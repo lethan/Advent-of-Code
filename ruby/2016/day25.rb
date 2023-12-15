@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-file = File.open('input_day25.txt', 'r')
+file = File.open('../../input/2016/input_day25.txt', 'r')
 program = []
 while (line = file.gets)
   program << line.chomp

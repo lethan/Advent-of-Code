@@ -1,4 +1,4 @@
-file = File.open('input_day12.txt', 'r')
+file = File.open('../../input/2016/input_day12.txt', 'r')
 program = []
 while line = file.gets
   program << line.chomp

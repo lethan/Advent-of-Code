@@ -1,4 +1,4 @@
-file = File.open('input_day03.txt', 'r')
+file = File.open('../../input/2016/input_day03.txt', 'r')
 input = []
 while line = file.gets
   match = /\s*(\d+)\s+(\d+)\s+(\d+)/.match(line)

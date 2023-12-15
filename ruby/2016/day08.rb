@@ -1,4 +1,4 @@
-file = File.open('input_day08.txt', 'r')
+file = File.open('../../input/2016/input_day08.txt', 'r')
 display = Array.new(6) { Array.new(50, false) }
 while line = file.gets
   match = /(rect (\d+)x(\d+))|(rotate (row|column) (x|y)=(\d+) by (\d+))/.match(line)

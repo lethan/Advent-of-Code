@@ -41,7 +41,7 @@ end
 bots = Hash.new
 outputs = Hash.new
 
-file = File.open('input_day10.txt', 'r')
+file = File.open('../../input/2016/input_day10.txt', 'r')
 while line = file.gets
   match = /(bot (\d+) gives low to (bot|output) (\d+) and high to (bot|output) (\d+))|(value (\d+) goes to bot (\d+))/.match(line)
   if match[1]

@@ -2,7 +2,7 @@
 
 require 'set'
 
-file = File.open('input_day24.txt', 'r')
+file = File.open('../../input/2016/input_day24.txt', 'r')
 maze = []
 row_number = 0
 points = {}

@@ -28,7 +28,7 @@ def minimum_wait(disks)
   minimum_wait
 end
 
-file = File.open('input_day15.txt', 'r')
+file = File.open('../../input/2016/input_day15.txt', 'r')
 disks = []
 while (line = file.gets)
   match = /Disc #(\d+) has (\d+) positions; at time=0, it is at position (\d+)./.match(line.strip)

@@ -1,7 +1,7 @@
 Node = Struct.new(:x, :y, :size, :used, :avail, :goal_data)
 
 nodes = []
-file = File.open('input_day22.txt', 'r')
+file = File.open('../../input/2016/input_day22.txt', 'r')
 while (line = file.gets)
   if (match = /\/dev\/grid\/node-x(\d+)-y(\d+)\s+(\d+)T\s+(\d+)T\s+(\d+)T\s+\d+%/.match(line))
     goal_data = false

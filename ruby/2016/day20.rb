@@ -17,7 +17,7 @@ class IpRange
   end
 end
 
-file = File.open('input_day20.txt', 'r')
+file = File.open('../../input/2016/input_day20.txt', 'r')
 ip_ranges = []
 while (line = file.gets)
   ip_range = line.chomp.split('-').map(&:to_i)

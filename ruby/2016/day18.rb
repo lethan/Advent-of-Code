@@ -1,4 +1,4 @@
-file = File.open('input_day18.txt', 'r')
+file = File.open('../../input/2016/input_day18.txt', 'r')
 while (line = file.gets)
   last_row = line.chomp.split('').map { |c| c == '.' }
 end

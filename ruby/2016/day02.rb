@@ -2,7 +2,7 @@ keypad = [['1','2','3'],
           ['4','5','6'],
           ['7','8','9']]
 
-file = File.open('input_day02.txt', 'r')
+file = File.open('../../input/2016/input_day02.txt', 'r')
 input = []
 while line = file.gets
   input << line.chomp.split('')

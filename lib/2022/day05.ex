@@ -48,9 +48,9 @@ defmodule AoC.Year2022.Day5 do
     end)
   end
 
-  def move(stacks, _from, _to, 0), do: stacks
+  defp move(stacks, _from, _to, 0), do: stacks
 
-  def move(stacks, from, to, moves) do
+  defp move(stacks, from, to, moves) do
     {box, stacks} =
       Map.get_and_update(stacks, from, fn [val | rest] ->
         {val, rest}
@@ -59,7 +59,7 @@ defmodule AoC.Year2022.Day5 do
     move(Map.update(stacks, to, [box], fn current -> [box | current] end), from, to, moves - 1)
   end
 
-  def move_advanced(stacks, from, to, moves) do
+  defp move_advanced(stacks, from, to, moves) do
     {boxes, stacks} =
       Map.get_and_update(stacks, from, fn list ->
         Enum.split(list, moves)
@@ -68,7 +68,7 @@ defmodule AoC.Year2022.Day5 do
     Map.update(stacks, to, boxes, fn current -> boxes ++ current end)
   end
 
-  def top_stacks(stacks) do
+  defp top_stacks(stacks) do
     Map.keys(stacks)
     |> Enum.sort()
     |> Enum.map(fn key ->

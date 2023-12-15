@@ -1,4 +1,4 @@
-defmodule AOC2016.Day1 do
+defmodule AoC.Year2016.Day1 do
   def import(file) do
     {:ok, content} = File.read(file)
 
@@ -89,12 +89,12 @@ defmodule AOC2016.Day1 do
   end
 end
 
-input = AOC2016.Day1.import("input_day01.txt")
+# input = AoC.Year2016.Day1.import("input/2016/input_day01.txt")
 
-input
-|> AOC2016.Day1.task1()
-|> IO.puts()
+# input
+# |> AoC.Year2016.Day1.task1()
+# |> IO.puts()
 
-input
-|> AOC2016.Day1.task2()
-|> IO.puts()
+# input
+# |> AoC.Year2016.Day1.task2()
+# |> IO.puts()

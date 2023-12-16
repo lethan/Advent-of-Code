@@ -9,11 +9,11 @@ defmodule AoC.Year2022.Day6 do
   end
 
   defp find_unique_chars(
-        <<char::binary-1, rest::binary>>,
-        number_of_chars \\ 4,
-        counter \\ 1,
-        zipper \\ Zipper.new()
-      ) do
+         <<char::binary-1, rest::binary>>,
+         number_of_chars \\ 4,
+         counter \\ 1,
+         zipper \\ Zipper.new()
+       ) do
     zipper = Zipper.enqueue(zipper, char)
 
     case Zipper.size(zipper) do

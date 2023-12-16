@@ -8,7 +8,7 @@ defmodule AoC.Year2022.Day6 do
     |> String.trim()
   end
 
-  def find_unique_chars(
+  defp find_unique_chars(
         <<char::binary-1, rest::binary>>,
         number_of_chars \\ 4,
         counter \\ 1,
@@ -46,12 +46,12 @@ defmodule AoC.Year2022.Day6 do
   end
 end
 
-input = AoC.Year2022.Day6.import("input/2022/input_day06.txt")
+# input = AoC.Year2022.Day6.import("input/2022/input_day06.txt")
 
-input
-|> AoC.Year2022.Day6.task1()
-|> IO.puts()
+# input
+# |> AoC.Year2022.Day6.task1()
+# |> IO.puts()
 
-input
-|> AoC.Year2022.Day6.task2()
-|> IO.puts()
+# input
+# |> AoC.Year2022.Day6.task2()
+# |> IO.puts()

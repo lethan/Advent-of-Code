@@ -1,4 +1,4 @@
-defmodule AOC2022.Day7 do
+defmodule AoC.Year2022.Day7 do
   def import(file) do
     {:ok, content} = File.read(file)
 
@@ -13,8 +13,7 @@ defmodule AOC2022.Day7 do
 
     {_, _, structure} =
       commands
-      |> Enum.reduce({dir, status, %{"/" => %{}}}, fn str,
-                                                      {current_dir, current_status, structure} ->
+      |> Enum.reduce({dir, status, %{"/" => %{}}}, fn str, {current_dir, current_status, structure} ->
         case current_status do
           :await_command ->
             ["$", command | rest] =
@@ -58,7 +57,7 @@ defmodule AOC2022.Day7 do
     {current_dir, :await_command, structure}
   end
 
-  def directory_sizes(structure) do
+  defp directory_sizes(structure) do
     structure
     |> Enum.reduce({0, []}, fn {id, data}, {current_size, path_sizes} ->
       case data do
@@ -96,12 +95,12 @@ defmodule AOC2022.Day7 do
   end
 end
 
-input = AOC2022.Day7.import("input_day07.txt")
+# input = AoC.Year2022.Day7.import("input/2022/input_day07.txt")
 
-input
-|> AOC2022.Day7.task1()
-|> IO.puts()
+# input
+# |> AoC.Year2022.Day7.task1()
+# |> IO.puts()
 
-input
-|> AOC2022.Day7.task2()
-|> IO.puts()
+# input
+# |> AoC.Year2022.Day7.task2()
+# |> IO.puts()

@@ -1,6 +1,6 @@
 require 'prime'
 
-file = File.open('input_day23.txt', 'r')
+file = File.open('../../input/2017/input_day23.txt', 'r')
 program = []
 while line = file.gets
   program << line.chomp

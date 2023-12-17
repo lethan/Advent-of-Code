@@ -1,7 +1,7 @@
 dance_line = (0..15).to_a.map! { |a| (a+97).chr }
 
 input = []
-file = File.open('input_day16.txt', 'r')
+file = File.open('../../input/2017/input_day16.txt', 'r')
 while line = file.gets
   input += line.split(',')
 end

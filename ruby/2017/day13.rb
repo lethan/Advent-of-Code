@@ -1,4 +1,4 @@
-file = File.open('input_day13.txt', 'r')
+file = File.open('../../input/2017/input_day13.txt', 'r')
 firewall = Hash.new(0)
 while line = file.gets
   arr = line.split(': ')

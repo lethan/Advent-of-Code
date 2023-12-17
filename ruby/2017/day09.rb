@@ -16,7 +16,7 @@ class Garbage
   end
 end
 
-file = File.open("input_day09.txt", "r")
+file = File.open("../../input/2017/input_day09.txt", "r")
 while line = file.gets
   temp = line
 end

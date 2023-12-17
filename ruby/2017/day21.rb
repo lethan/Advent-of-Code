@@ -1,4 +1,4 @@
-file = File.open('input_day21.txt', 'r')
+file = File.open('../../input/2017/input_day21.txt', 'r')
 enhancement_rules = Hash.new
 
 while line = file.gets

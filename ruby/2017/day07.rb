@@ -9,7 +9,7 @@ class Program
   end
 end
 
-file = File.open("input_day07.txt", "r")
+file = File.open("../../input/2017/input_day07.txt", "r")
 input = []
 while line = file.gets
   match = /(\S+) \((\d+)\)( -> (.+))?/.match(line)

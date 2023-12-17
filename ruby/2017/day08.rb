@@ -1,7 +1,7 @@
 registers = Hash.new(0)
 
 max_value = 0
-file = File.open("input_day08.txt", "r")
+file = File.open("../../input/2017/input_day08.txt", "r")
 while line = file.gets
   match = /(\S+) (inc|dec) (-?\d+) if (\S+) ([=<>!]{1,2}) (-?\d+)/.match(line)
   compute = false

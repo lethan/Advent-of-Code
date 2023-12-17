@@ -1,4 +1,4 @@
-file = File.open('input_day19.txt', 'r')
+file = File.open('../../input/2017/input_day19.txt', 'r')
 path_diagram = []
 while line = file.gets
   row = line.chomp.split('')

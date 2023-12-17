@@ -1,5 +1,5 @@
 input = ""
-file = File.open('input_day02.txt', 'r')
+file = File.open('../../input/2017/input_day02.txt', 'r')
 while line = file.gets
   input += line
 end

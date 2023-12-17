@@ -131,7 +131,7 @@ class Particle
   end
 end
 
-file = File.open('input_day20.txt', 'r')
+file = File.open('../../input/2017/input_day20.txt', 'r')
 particles = []
 particle_number = 0
 while line = file.gets

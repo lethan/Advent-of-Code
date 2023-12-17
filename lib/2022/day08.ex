@@ -1,4 +1,4 @@
-defmodule AOC2022.Day8 do
+defmodule AoC.Year2022.Day8 do
   def import(file) do
     {:ok, content} = File.read(file)
 
@@ -19,7 +19,7 @@ defmodule AOC2022.Day8 do
     end)
   end
 
-  def visible_tree(
+  defp visible_tree(
         trees,
         coord,
         direction,
@@ -29,10 +29,10 @@ defmodule AOC2022.Day8 do
         visible \\ %{}
       )
 
-  def visible_tree(_, _, _, last_tree, max_height, _, visible) when last_tree >= max_height,
+  defp visible_tree(_, _, _, last_tree, max_height, _, visible) when last_tree >= max_height,
     do: visible
 
-  def visible_tree(
+  defp visible_tree(
         trees,
         {x, y} = coord,
         {x_dir, y_dir} = direction,
@@ -62,7 +62,7 @@ defmodule AOC2022.Day8 do
     end
   end
 
-  def visible_tree(
+  defp visible_tree(
         trees,
         {x, y} = coord,
         {x_dir, y_dir} = direction,
@@ -81,7 +81,7 @@ defmodule AOC2022.Day8 do
     end
   end
 
-  def visible_trees(trees) do
+  defp visible_trees(trees) do
     {min_x, max_x} =
       trees
       |> Enum.map(fn {{x, _}, _val} -> x end)
@@ -117,7 +117,7 @@ defmodule AOC2022.Day8 do
     |> Map.merge(visible)
   end
 
-  def scenic_trees(trees) do
+  defp scenic_trees(trees) do
     trees
     |> Enum.map(fn {{x, y} = coord, tree} ->
       visible_trees =
@@ -162,12 +162,12 @@ defmodule AOC2022.Day8 do
   end
 end
 
-input = AOC2022.Day8.import("input_day08.txt")
+# input = AoC.Year2022.Day8.import("input/2022/input_day08.txt")
 
-input
-|> AOC2022.Day8.task1()
-|> IO.puts()
+# input
+# |> AoC.Year2022.Day8.task1()
+# |> IO.puts()
 
-input
-|> AOC2022.Day8.task2()
-|> IO.puts()
+# input
+# |> AoC.Year2022.Day8.task2()
+# |> IO.puts()

@@ -20,27 +20,27 @@ defmodule AoC.Year2022.Day8 do
   end
 
   defp visible_tree(
-        trees,
-        coord,
-        direction,
-        last_tree \\ -1,
-        max_height \\ 9,
-        always_higher \\ true,
-        visible \\ %{}
-      )
+         trees,
+         coord,
+         direction,
+         last_tree \\ -1,
+         max_height \\ 9,
+         always_higher \\ true,
+         visible \\ %{}
+       )
 
   defp visible_tree(_, _, _, last_tree, max_height, _, visible) when last_tree >= max_height,
     do: visible
 
   defp visible_tree(
-        trees,
-        {x, y} = coord,
-        {x_dir, y_dir} = direction,
-        last_tree,
-        max_height,
-        true,
-        visible
-      ) do
+         trees,
+         {x, y} = coord,
+         {x_dir, y_dir} = direction,
+         last_tree,
+         max_height,
+         true,
+         visible
+       ) do
     case Map.get(trees, coord) do
       nil ->
         visible
@@ -63,14 +63,14 @@ defmodule AoC.Year2022.Day8 do
   end
 
   defp visible_tree(
-        trees,
-        {x, y} = coord,
-        {x_dir, y_dir} = direction,
-        _last_tree,
-        max_height,
-        false,
-        visible
-      ) do
+         trees,
+         {x, y} = coord,
+         {x_dir, y_dir} = direction,
+         _last_tree,
+         max_height,
+         false,
+         visible
+       ) do
     case Map.get(trees, coord) do
       nil ->
         visible

@@ -48,7 +48,7 @@ defmodule AoC.Zipper do
 end
 
 defimpl Enumerable, for: AoC.Zipper do
-  def count(%AoC.Zipper{front: front, back: back}), do: {:ok, length(front) + length(back)}
+  def count(zipper = %AoC.Zipper{}), do: {:ok, AoC.Zipper.size(zipper)}
 
   def member?(%AoC.Zipper{front: [], back: []}, _value), do: {:ok, false}
   def member?(_zipper, _value), do: {:error, __MODULE__}

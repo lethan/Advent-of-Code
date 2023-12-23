@@ -1,4 +1,6 @@
 defmodule AoC.Year2022.Day11 do
+  alias AoC.Zipper
+
   def import(file) do
     {:ok, content} = File.read(file)
 
@@ -7,7 +9,7 @@ defmodule AoC.Year2022.Day11 do
     |> Enum.map(&convert_to_monkey/1)
     |> Enum.reduce(%{}, fn {monkey, items, operation, control, _to_true, _to_false, divisor}, acc ->
       Map.put(acc, monkey, %{
-        items: {items, []},
+        items: Zipper.new(items),
         operation: operation,
         control: control,
         inspections: 0,
@@ -90,10 +92,9 @@ defmodule AoC.Year2022.Day11 do
       operation = Map.get(monkey_info, :operation)
       control = Map.get(monkey_info, :control)
 
-      {front, back} = Map.get(monkey_info, :items)
-      acc = put_in(acc, [monkey, :items], {[], []})
+      {items, acc} = get_and_update_in(acc, [monkey, :items], fn v -> {v, Zipper.new()} end)
 
-      (front ++ Enum.reverse(back))
+      items
       |> Enum.reduce(acc, fn number, acc2 ->
         new_number =
           if with_modulo,
@@ -101,12 +102,10 @@ defmodule AoC.Year2022.Day11 do
             else: div(operation.(number), 3)
 
         new_monkey = control.(new_number)
-        {front, back} = get_in(acc2, [new_monkey, :items])
-        inspections = get_in(acc2, [monkey, :inspections])
 
         acc2
-        |> put_in([new_monkey, :items], {front, [new_number | back]})
-        |> put_in([monkey, :inspections], inspections + 1)
+        |> update_in([new_monkey, :items], &Zipper.enqueue(&1, new_number))
+        |> update_in([monkey, :inspections], &(&1 + 1))
       end)
     end)
   end
@@ -139,12 +138,12 @@ defmodule AoC.Year2022.Day11 do
   end
 end
 
-input = AoC.Year2022.Day11.import("input/2022/input_day11.txt")
+# input = AoC.Year2022.Day11.import("input/2022/input_day11.txt")
 
-input
-|> AoC.Year2022.Day11.task1()
-|> IO.puts()
+# input
+# |> AoC.Year2022.Day11.task1()
+# |> IO.puts()
 
-input
-|> AoC.Year2022.Day11.task2()
-|> IO.puts()
+# input
+# |> AoC.Year2022.Day11.task2()
+# |> IO.puts()

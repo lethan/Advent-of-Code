@@ -5,6 +5,11 @@ defmodule AoC.Zipper do
     %__MODULE__{}
   end
 
+  def new(list) do
+    list
+    |> Enum.into(new())
+  end
+
   def peek(zipper, default \\ nil)
   def peek(%__MODULE__{front: [value | _]}, _default), do: value
   def peek(%__MODULE__{front: [], back: []}, default), do: default

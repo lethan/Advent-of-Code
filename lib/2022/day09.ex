@@ -23,10 +23,10 @@ defmodule AoC.Year2022.Day9 do
     end)
   end
 
-  def move(instructions, head \\ {0, 0}, tails \\ [{0, 0}], visited \\ %{{0, 0} => true})
-  def move([], _head, _tails, visisted), do: visisted
+  defp move(instructions, head \\ {0, 0}, tails \\ [{0, 0}], visited \\ %{{0, 0} => true})
+  defp move([], _head, _tails, visisted), do: visisted
 
-  def move([{direction, steps} | rest], head, tails, visited) do
+  defp move([{direction, steps} | rest], head, tails, visited) do
     {head, tails, visited} =
       1..steps
       |> Enum.reduce({head, tails, visited}, fn _, {{head_x, head_y}, tails, acc} ->
@@ -89,12 +89,12 @@ defmodule AoC.Year2022.Day9 do
   end
 end
 
-input = AoC.Year2022.Day9.import("input/2022/input_day09.txt")
+# input = AoC.Year2022.Day9.import("input/2022/input_day09.txt")
 
-input
-|> AoC.Year2022.Day9.task1()
-|> IO.puts()
+# input
+# |> AoC.Year2022.Day9.task1()
+# |> IO.puts()
 
-input
-|> AoC.Year2022.Day9.task2()
-|> IO.puts()
+# input
+# |> AoC.Year2022.Day9.task2()
+# |> IO.puts()

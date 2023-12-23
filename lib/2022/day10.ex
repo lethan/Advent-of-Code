@@ -15,24 +15,23 @@ defmodule AoC.Year2022.Day10 do
     end)
   end
 
-  def run(instructions, instruction \\ 1, results \\ [{0, 1}])
-  def run([], _instruction, results), do: results
+  defp run(instructions, cycle \\ 1, results \\ [{0, 1}])
+  defp run([], _cycle, results), do: Enum.reverse(results)
 
-  def run([{:noop} | rest], instruction, results) do
-    run(rest, instruction + 1, results)
+  defp run([{:noop} | rest], cycle, results) do
+    run(rest, cycle + 1, results)
   end
 
-  def run([{:addx, value} | rest], instruction, [{_, x} | _] = results) do
-    run(rest, instruction + 2, [{instruction + 2, x + value} | results])
+  defp run([{:addx, value} | rest], cycle, [{_, x} | _] = results) do
+    run(rest, cycle + 2, [{cycle + 2, x + value} | results])
   end
 
-  def signal_strength(sampling, times) do
+  defp signal_strength(sampling, times) do
     times =
       times
       |> Enum.map(fn x -> {x, 0} end)
 
     sampling
-    |> Enum.reverse()
     |> Enum.reduce(times, fn {cycle, value}, acc ->
       Enum.map(acc, fn {max_cycle, current} ->
         if max_cycle >= cycle do
@@ -45,9 +44,7 @@ defmodule AoC.Year2022.Day10 do
     |> Enum.reduce(0, fn {cycle, value}, acc -> acc + cycle * value end)
   end
 
-  def draw_crt(sampling) do
-    sampling = Enum.reverse(sampling)
-
+  defp draw_crt(sampling) do
     1..240
     |> Enum.reduce({"", sampling}, fn cycle, {acc, sampling} ->
       {dropped, sampling} =
@@ -91,12 +88,12 @@ defmodule AoC.Year2022.Day10 do
   end
 end
 
-input = AoC.Year2022.Day10.import("input/2022/input_day10.txt")
+# input = AoC.Year2022.Day10.import("input/2022/input_day10.txt")
 
-input
-|> AoC.Year2022.Day10.task1()
-|> IO.puts()
+# input
+# |> AoC.Year2022.Day10.task1()
+# |> IO.puts()
 
-input
-|> AoC.Year2022.Day10.task2()
-|> IO.puts()
+# input
+# |> AoC.Year2022.Day10.task2()
+# |> IO.puts()

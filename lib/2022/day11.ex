@@ -83,7 +83,7 @@ defmodule AoC.Year2022.Day11 do
   defp value_or_var("old"), do: fn n -> n end
   defp value_or_var(number), do: fn _ -> String.to_integer(number) end
 
-  def play_round(monkeys, with_modulo \\ false) do
+  defp play_round(monkeys, with_modulo \\ false) do
     Map.keys(monkeys)
     |> Enum.sort()
     |> Enum.reduce(monkeys, fn monkey, acc ->

@@ -1,12 +1,11 @@
-defmodule AOC2022.Day11 do
+defmodule AoC.Year2022.Day11 do
   def import(file) do
     {:ok, content} = File.read(file)
 
     content
     |> String.split("\n\n", trim: true)
     |> Enum.map(&convert_to_monkey/1)
-    |> Enum.reduce(%{}, fn {monkey, items, operation, control, _to_true, _to_false, divisor},
-                           acc ->
+    |> Enum.reduce(%{}, fn {monkey, items, operation, control, _to_true, _to_false, divisor}, acc ->
       Map.put(acc, monkey, %{
         items: {items, []},
         operation: operation,
@@ -26,13 +25,10 @@ defmodule AOC2022.Day11 do
       |> String.split([" ", ":"])
     end)
     |> Enum.reverse()
-    |> Enum.reduce({nil, nil, nil, nil, nil, nil, nil}, fn input,
-                                                           {monkey, items, operation, control,
-                                                            to_true, to_false, divisor} ->
+    |> Enum.reduce({nil, nil, nil, nil, nil, nil, nil}, fn input, {monkey, items, operation, control, to_true, to_false, divisor} ->
       case input do
         ["Monkey", monkey_number | _] ->
-          {String.to_integer(monkey_number), items, operation, control, to_true, to_false,
-           divisor}
+          {String.to_integer(monkey_number), items, operation, control, to_true, to_false, divisor}
 
         ["Starting", "items", "" | items_input] ->
           items =
@@ -143,12 +139,12 @@ defmodule AOC2022.Day11 do
   end
 end
 
-input = AOC2022.Day11.import("input_day11.txt")
+input = AoC.Year2022.Day11.import("input/2022/input_day11.txt")
 
 input
-|> AOC2022.Day11.task1()
+|> AoC.Year2022.Day11.task1()
 |> IO.puts()
 
 input
-|> AOC2022.Day11.task2()
+|> AoC.Year2022.Day11.task2()
 |> IO.puts()

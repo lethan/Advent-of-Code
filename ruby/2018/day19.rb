@@ -160,7 +160,7 @@ def _eqrr(in_a, in_b, out_c)
   method(meth)
 end
 
-file = File.open('input_day19.txt', 'r')
+file = File.open('../../input/2018/input_day19.txt', 'r')
 program = []
 while (line = file.gets)
   program << line.chomp

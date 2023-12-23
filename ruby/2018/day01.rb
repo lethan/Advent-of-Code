@@ -1,4 +1,4 @@
-file = File.open('input_day01.txt', 'r')
+file = File.open('../../input/2018/input_day01.txt', 'r')
 changes = []
 while line = file.gets
    changes << line.strip.to_i

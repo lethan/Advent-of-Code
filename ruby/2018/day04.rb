@@ -1,4 +1,4 @@
-file = File.open('input_day04.txt', 'r')
+file = File.open('../../input/2018/input_day04.txt', 'r')
 timestamps = []
 while line = file.gets
   timestamps << line.strip

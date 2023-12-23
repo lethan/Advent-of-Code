@@ -133,7 +133,7 @@ def water_flow(source, underground, base_info)
   blocked
 end
 
-file = File.open('input_day17.txt', 'r')
+file = File.open('../../input/2018/input_day17.txt', 'r')
 blocks = []
 while (line = file.gets)
   match = /(x|y)=(\d+), (x|y)=(\d+)..(\d+)/.match(line.chomp)

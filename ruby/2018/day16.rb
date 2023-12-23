@@ -77,7 +77,7 @@ def possible_operations(in_arr, out_arr, command)
   possible
 end
 
-file = File.open('input_day16.txt', 'r')
+file = File.open('../../input/2018/input_day16.txt', 'r')
 in_sample = false
 sample_op = nil
 input_arr = nil

@@ -194,7 +194,7 @@ end
 
 carts = []
 tracks = []
-file = File.open('input_day13.txt', 'r')
+file = File.open('../../input/2018/input_day13.txt', 'r')
 row = 0
 while (line = file.gets)
   x_row = []

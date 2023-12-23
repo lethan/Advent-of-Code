@@ -39,7 +39,7 @@ class Group
   end
 end
 
-file = File.open('input_day24.txt', 'r')
+file = File.open('../../input/2018/input_day24.txt', 'r')
 immune_system = []
 infections = []
 current_import = nil

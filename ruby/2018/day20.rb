@@ -205,7 +205,7 @@ def regex_map(regex, current_room, step = 0)
   end
 end
 
-file = File.open('input_day20.txt', 'r')
+file = File.open('../../input/2018/input_day20.txt', 'r')
 regex = +''
 while (line = file.gets)
   regex << line.chomp

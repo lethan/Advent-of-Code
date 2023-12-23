@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-file = File.open('input_day18.txt', 'r')
+file = File.open('../../input/2018/input_day18.txt', 'r')
 forrest = []
 while (line = file.gets)
   forrest << line.chomp.split('')

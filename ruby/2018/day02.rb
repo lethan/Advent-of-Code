@@ -1,4 +1,4 @@
-file = File.open('input_day02.txt', 'r')
+file = File.open('../../input/2018/input_day02.txt', 'r')
 id_codes = []
 while line = file.gets
    id_codes << line.strip

@@ -87,7 +87,7 @@ def next_to_vancant(being, maze)
   vacancies
 end
 
-file = File.open('input_day15.txt', 'r')
+file = File.open('../../input/2018/input_day15.txt', 'r')
 maze = []
 elfs = []
 goblins = []

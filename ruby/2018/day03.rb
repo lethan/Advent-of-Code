@@ -1,4 +1,4 @@
-file = File.open('input_day03.txt', 'r')
+file = File.open('../../input/2018/input_day03.txt', 'r')
 squares = []
 while line = file.gets
   if match = /#(\d+) @ (\d+),(\d+): (\d+)x(\d+)/.match(line)

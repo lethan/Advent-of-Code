@@ -1,4 +1,4 @@
-file = File.open('input_day05.txt', 'r')
+file = File.open('../../input/2018/input_day05.txt', 'r')
 input = ''
 while (line = file.gets)
   input += line.strip

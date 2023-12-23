@@ -1,4 +1,4 @@
-file = File.open('input_day06.txt', 'r')
+file = File.open('../../input/2018/input_day06.txt', 'r')
 places = []
 while (line = file.gets)
   places << line.strip.split(', ').map(&:to_i)

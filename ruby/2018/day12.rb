@@ -1,4 +1,4 @@
-file = File.open('input_day12.txt', 'r')
+file = File.open('../../input/2018/input_day12.txt', 'r')
 state = Hash.new(false)
 transformations = {}
 while (line = file.gets)

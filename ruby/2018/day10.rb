@@ -1,4 +1,4 @@
-file = File.open('input_day10.txt', 'r')
+file = File.open('../../input/2018/input_day10.txt', 'r')
 points = []
 while (line = file.gets)
   points << /position=<\s*(-?\d+),\s*(-?\d+)> velocity=<\s*(-?\d+),\s*(-?\d+)>/.match(line)[1..4].map(&:to_i)

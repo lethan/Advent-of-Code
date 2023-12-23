@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-file = File.open('input_day25.txt', 'r')
+file = File.open('../../input/2018/input_day25.txt', 'r')
 points = []
 while (line = file.gets)
   points << line.chomp.split(',').map(&:to_i)

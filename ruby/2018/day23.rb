@@ -28,7 +28,7 @@ class Nanobot
   end
 end
 
-file = File.open('input_day23.txt', 'r')
+file = File.open('../../input/2018/input_day23.txt', 'r')
 nanobots = []
 while (line = file.gets)
   if (match = /pos=<(-?\d+),(-?\d+),(-?\d+)>, r=(\d+)/.match(line))

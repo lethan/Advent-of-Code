@@ -1,4 +1,4 @@
-file = File.open('input_day07.txt', 'r')
+file = File.open('../../input/2018/input_day07.txt', 'r')
 input = {}
 while (line = file.gets)
   match = /Step ([A-Z]) must be finished before step ([A-Z]) can begin./.match(line.strip)

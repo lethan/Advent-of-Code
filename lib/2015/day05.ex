@@ -1,4 +1,4 @@
-defmodule AOC2015.Day5 do
+defmodule AoC.Year2015.Day5 do
   def import(file) do
     {:ok, content} = File.read(file)
 
@@ -8,9 +8,7 @@ defmodule AOC2015.Day5 do
   end
 
   defp vovels([]), do: 0
-
   defp vovels([char | rest]) when char in ["a", "e", "i", "o", "u"], do: 1 + vovels(rest)
-
   defp vovels([_ | rest]), do: vovels(rest)
 
   defp valid_string(list, found_duplidate \\ false)
@@ -20,14 +18,8 @@ defmodule AOC2015.Day5 do
   defp valid_string(["c", "d" | _], _), do: false
   defp valid_string(["p", "q" | _], _), do: false
   defp valid_string(["x", "y" | _], _), do: false
-
-  defp valid_string([a, b | rest], _) when a == b do
-    valid_string([b | rest], true)
-  end
-
-  defp valid_string([_, b | rest], found_duplidate) do
-    valid_string([b | rest], found_duplidate)
-  end
+  defp valid_string([a, a | rest], _), do: valid_string([a | rest], true)
+  defp valid_string([_, a | rest], found_duplidate), do: valid_string([a | rest], found_duplidate)
 
   defp nice_string(list, seen_pairs \\ %{}, found_pair \\ false, found_repeat \\ false)
   defp nice_string(_, _, true, true), do: true
@@ -85,12 +77,12 @@ defmodule AOC2015.Day5 do
   end
 end
 
-input = AOC2015.Day5.import("input_day05.txt")
+# input = AoC.Year2015.Day5.import("input/2015/input_day05.txt")
 
-input
-|> AOC2015.Day5.task1()
-|> IO.puts()
+# input
+# |> AoC.Year2015.Day5.task1()
+# |> IO.puts()
 
-input
-|> AOC2015.Day5.task2()
-|> IO.puts()
+# input
+# |> AoC.Year2015.Day5.task2()
+# |> IO.puts()

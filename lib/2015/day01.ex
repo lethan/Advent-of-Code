@@ -19,7 +19,8 @@ defmodule AoC.Year2015.Day1 do
   end
 
   defp find_floor(list, find), do: find_floor(list, find, 0, 0)
-  defp find_floor(_list, find, current_floor, step) when find == current_floor, do: step
+
+  defp find_floor(_list, find, find, step), do: step
 
   defp find_floor(["(" | rest], find, current_floor, step) do
     find_floor(rest, find, current_floor + 1, step + 1)

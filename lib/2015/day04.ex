@@ -1,4 +1,4 @@
-defmodule AOC2015.Day4 do
+defmodule AoC.Year2015.Day4 do
   defp find_valid_hash_value(input, number_of_zeroes, current_number \\ 1) do
     zeroes = String.duplicate("0", number_of_zeroes)
     test_value = input <> Integer.to_string(current_number)
@@ -27,12 +27,12 @@ defmodule AOC2015.Day4 do
   end
 end
 
-input = "bgvyzdsv"
+# input = "bgvyzdsv"
 
-input
-|> AOC2015.Day4.task1()
-|> IO.puts()
+# input
+# |> AoC.Year2015.Day4.task1()
+# |> IO.puts()
 
-input
-|> AOC2015.Day4.task2()
-|> IO.puts()
+# input
+# |> AoC.Year2015.Day4.task2()
+# |> IO.puts()

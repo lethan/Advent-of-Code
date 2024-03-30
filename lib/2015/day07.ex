@@ -1,4 +1,4 @@
-defmodule AOC2015.Day7 do
+defmodule AoC.Year2015.Day7 do
   defmodule LogicGates do
     defmacro __using__(opts) do
       default_opts = [file: nil, signal_size: 16, except: []]
@@ -9,8 +9,6 @@ defmodule AOC2015.Day7 do
       file_definitions = gates_from_file(Keyword.get(opts, :file), Keyword.get(opts, :except, []))
 
       quote do
-        import unquote(__MODULE__)
-
         @before_compile unquote(__MODULE__)
 
         @bitpattern unquote(bitpattern)
@@ -66,7 +64,7 @@ defmodule AOC2015.Day7 do
       generate_blocks(value)
     end
 
-    defp generate_blocks([:~~~, value]) do
+    defp generate_blocks([:"~~~", value]) do
       quote do
         {value, memorized} = unquote(generate_blocks(value))
         {~~~value, memorized}
@@ -101,7 +99,7 @@ defmodule AOC2015.Day7 do
               :>>>
 
             "NOT" ->
-              :~~~
+              :"~~~"
 
             value ->
               "gate_#{value}"
@@ -112,7 +110,7 @@ defmodule AOC2015.Day7 do
     defp gates_from_file(nil, _except), do: nil
 
     defp gates_from_file(file, except) do
-      gates_file = Path.join(__DIR__, file)
+      gates_file = Path.join([__DIR__, "../../", file])
 
       ast =
         for line <- File.stream!(gates_file, [], :line) do
@@ -125,14 +123,16 @@ defmodule AOC2015.Day7 do
           included =
             unless gate in except do
               quote do
-                defp unquote(gate_function)(memorized = %{unquote(gate_function) => value}) do
-                  {value, memorized}
-                end
-
                 defp unquote(gate_function)(memorized) do
-                  {value, new_memorized} = unquote(generate_blocks(block))
-                  new_memorized = Map.put(new_memorized, unquote(gate_function), value)
-                  {value, new_memorized}
+                  case Map.get(memorized, unquote(gate_function)) do
+                    nil ->
+                      {value, new_memorized} = unquote(generate_blocks(block))
+                      new_memorized = Map.put(new_memorized, unquote(gate_function), value)
+                      {value, new_memorized}
+
+                    value ->
+                      {value, memorized}
+                  end
                 end
               end
             end
@@ -156,13 +156,13 @@ defmodule AOC2015.Day7 do
   end
 
   defmodule Task1 do
-    use LogicGates, file: "input_day07.txt"
+    use LogicGates, file: "input/2015/input_day07.txt"
   end
 
   defmodule Task2 do
-    use LogicGates, file: "input_day07.txt", except: [:b]
+    use LogicGates, file: "input/2015/input_day07.txt", except: [:b]
 
-    defp gate_b(memorized = %{gate_b: value}) do
+    defp gate_b(%{gate_b: value} = memorized) do
       {value, memorized}
     end
 
@@ -174,8 +174,8 @@ defmodule AOC2015.Day7 do
   end
 end
 
-AOC2015.Day7.Task1.gate_value(:a)
+AoC.Year2015.Day7.Task1.gate_value(:a)
 |> IO.puts()
 
-AOC2015.Day7.Task2.gate_value(:a)
+AoC.Year2015.Day7.Task2.gate_value(:a)
 |> IO.puts()

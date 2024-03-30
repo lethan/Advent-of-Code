@@ -89,10 +89,12 @@ defmodule AoC.Year2015.Day6 do
   defp on(currently_on, turn_on, checked \\ [])
   defp on(ons, [], checked), do: ons ++ checked
   defp on([], [a | rest], checked), do: on([a | checked], rest)
+
   defp on([b | ons], [a | rest] = turn_on, checked) do
     case intersection(a, b) do
       {[^a], [], [^b]} ->
         on(ons, turn_on, [b | checked])
+
       {as, [_], _} ->
         on([b | ons] ++ checked, rest ++ as)
     end
@@ -101,12 +103,14 @@ defmodule AoC.Year2015.Day6 do
   defp off(currently_on, turn_off, checked \\ [])
   defp off(ons, [], checked), do: ons ++ checked
   defp off([], _, checked), do: checked
+
   defp off([b | ons], turn_off, checked) do
     turn_off
     |> Enum.reduce_while(:ok, fn rect, :ok ->
       case intersection(rect, b) do
         {[^rect], [], [^b]} ->
           {:cont, :ok}
+
         {as, [_], bs} ->
           new_turn_off = List.delete(turn_off, rect) ++ as
           new_ons = bs ++ ons
@@ -125,10 +129,12 @@ defmodule AoC.Year2015.Day6 do
   defp toggle(currently_on, toggle, checked \\ [])
   defp toggle(ons, [], checked), do: ons ++ checked
   defp toggle([], [a | rest], checked), do: toggle([a | checked], rest)
+
   defp toggle([b | ons], [a | rest] = toggle, checked) do
     case intersection(a, b) do
       {[^a], [], [^b]} ->
         toggle(ons, toggle, [b | checked])
+
       {as, [_], bs} ->
         toggle(ons ++ bs ++ checked, rest ++ as)
     end

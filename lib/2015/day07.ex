@@ -174,8 +174,8 @@ defmodule AoC.Year2015.Day7 do
   end
 end
 
-AoC.Year2015.Day7.Task1.gate_value(:a)
-|> IO.puts()
+# AoC.Year2015.Day7.Task1.gate_value(:a)
+# |> IO.puts()
 
-AoC.Year2015.Day7.Task2.gate_value(:a)
-|> IO.puts()
+# AoC.Year2015.Day7.Task2.gate_value(:a)
+# |> IO.puts()

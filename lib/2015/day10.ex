@@ -82,12 +82,12 @@ defmodule AoC.Year2015.Day10 do
   end
 end
 
-input = AoC.Year2015.Day10.import("input/2015/input_day10.txt")
+# input = AoC.Year2015.Day10.import("input/2015/input_day10.txt")
 
-input
-|> AoC.Year2015.Day10.part1()
-|> IO.puts()
+# input
+# |> AoC.Year2015.Day10.part1()
+# |> IO.puts()
 
-input
-|> AoC.Year2015.Day10.part2()
-|> IO.puts()
+# input
+# |> AoC.Year2015.Day10.part2()
+# |> IO.puts()

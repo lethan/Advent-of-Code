@@ -1,5 +1,14 @@
-defmodule AOC2015.Day10 do
-  def convert_to_data(number) do
+defmodule AoC.Year2015.Day10 do
+  def import(file) do
+    {:ok, content} = File.read(file)
+
+    content
+    |> String.trim()
+    |> String.to_integer()
+    |> convert_to_data()
+  end
+
+  defp convert_to_data(number) do
     [first | rest] = Integer.digits(number)
 
     rest
@@ -17,7 +26,7 @@ defmodule AOC2015.Day10 do
   defp chunk_after(:first), do: {:cont, :first}
   defp chunk_after(acc), do: {:cont, acc, acc}
 
-  def apply_step(input) do
+  defp apply_step(input) do
     input
     |> Enum.reduce([], fn {count, value}, acc ->
       [{1, value}, {1, count} | acc]
@@ -38,7 +47,7 @@ defmodule AOC2015.Day10 do
     end
   end
 
-  def size(input) do
+  defp size(input) do
     input
     |> Enum.reduce(0, fn {count, _}, acc ->
       count + acc
@@ -73,12 +82,12 @@ defmodule AOC2015.Day10 do
   end
 end
 
-input = AOC2015.Day10.convert_to_data(1_113_222_113)
+input = AoC.Year2015.Day10.import("input/2015/input_day10.txt")
 
 input
-|> AOC2015.Day10.part1()
+|> AoC.Year2015.Day10.part1()
 |> IO.puts()
 
 input
-|> AOC2015.Day10.part2()
+|> AoC.Year2015.Day10.part2()
 |> IO.puts()

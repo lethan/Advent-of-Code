@@ -6,144 +6,100 @@ defmodule AoC.Year2015.Day7 do
 
       bitpattern = Bitwise.<<<(1, Keyword.fetch!(opts, :signal_size)) - 1
 
-      file_definitions = gates_from_file(Keyword.get(opts, :file), Keyword.get(opts, :except, []))
+      Module.register_attribute(__CALLER__.module, :gate, accumulate: true, persist: false)
+
+      gate_defs = register_gates(Keyword.get(opts, :file), Keyword.get(opts, :except, []))
 
       quote do
         @before_compile unquote(__MODULE__)
 
         @bitpattern unquote(bitpattern)
 
-        unquote(file_definitions)
+        unquote(gate_defs)
       end
     end
 
-    defmacro __before_compile__(_env) do
-      quote do
-        def a &&& b do
-          Bitwise.&&&(a, b)
-          |> Bitwise.&&&(@bitpattern)
-        end
+    defmacro __before_compile__(env) do
+      gates =
+        Module.get_attribute(env.module, :gate)
+        |> Enum.into(%{})
 
-        def a ||| b do
-          Bitwise.|||(a, b)
-          |> Bitwise.&&&(@bitpattern)
-        end
+      bitpattern = Module.get_attribute(env.module, :bitpattern) || 1
 
-        def a >>> b do
-          Bitwise.>>>(a, b)
-          |> Bitwise.&&&(@bitpattern)
-        end
+      {output, _} =
+        Enum.reduce(Map.keys(gates), {[], gates}, fn gate, {acc, gates} ->
+          {value, gates} = gate_value(gate, gates, bitpattern)
 
-        def a <<< b do
-          Bitwise.<<<(a, b)
-          |> Bitwise.&&&(@bitpattern)
-        end
+          fun =
+            quote generated: true do
+              def gate_value(unquote(gate)), do: unquote(value)
+            end
 
-        def ~~~a do
-          Bitwise.~~~(a)
-          |> Bitwise.&&&(@bitpattern)
-        end
+          {[fun | acc], gates}
+        end)
+
+      output
+    end
+
+    #@dialyzer {:nowarn_function, value: 3}
+    def value({:value, value}, gates, _) do
+      {value, gates}
+    end
+
+    def value({:gate, gate}, gates, bitpattern) do
+      {value, new_gates} = gate_value(gate, gates, bitpattern)
+      new_gates = Map.put(new_gates, gate, value)
+      {value, new_gates}
+    end
+
+    #@dialyzer {:nowarn_function, gate_value: 3}
+    def gate_value(gate, gates, bitpattern) do
+      case Map.get(gates, gate) do
+        value when is_integer(value) ->
+          {value, gates}
+
+        {:value, value} ->
+          gates = Map.put(gates, gate, value)
+          {value, gates}
+
+        {:gate, other_gate} ->
+          {value, new_gates} = gate_value(other_gate, gates, bitpattern)
+          new_gates = Map.put(new_gates, gate, {:value, value})
+          {value, new_gates}
+
+        {op, left, right} ->
+          {left_value, gates} = value(left, gates, bitpattern)
+          {right_value, gates} = value(right, gates, bitpattern)
+
+          value = apply(Bitwise, op, [left_value, right_value]) |> Bitwise.&&&(bitpattern)
+          gates = Map.put(gates, gate, value)
+          {value, gates}
+
+        {:~~~, left} ->
+          {left_value, gates} = value(left, gates, bitpattern)
+
+          value = Bitwise.~~~(left_value) |> Bitwise.&&&(bitpattern)
+          gates = Map.put(gates, gate, value)
+          {value, gates}
       end
     end
 
-    defp generate_blocks(value) when is_integer(value) do
-      quote do
-        {unquote(value), memorized}
-      end
-    end
+    defp register_gates(nil, _except), do: nil
 
-    defp generate_blocks(gate) when is_binary(gate) do
-      function_name = String.to_atom(gate)
-
-      quote do
-        unquote(function_name)(memorized)
-      end
-    end
-
-    defp generate_blocks([value]) do
-      generate_blocks(value)
-    end
-
-    defp generate_blocks([:"~~~", value]) do
-      quote do
-        {value, memorized} = unquote(generate_blocks(value))
-        {~~~value, memorized}
-      end
-    end
-
-    defp generate_blocks([lhs, operator, rhs]) when operator in [:&&&, :|||, :<<<, :>>>] do
-      quote do
-        {left_value, memorized} = unquote(generate_blocks(lhs))
-        {right_value, memorized} = unquote(generate_blocks(rhs))
-        {apply(__MODULE__, unquote(operator), [left_value, right_value]), memorized}
-      end
-    end
-
-    defp input_to_type(input) do
-      case Integer.parse(input) do
-        {value, ""} ->
-          value
-
-        _ ->
-          case input do
-            "AND" ->
-              :&&&
-
-            "OR" ->
-              :|||
-
-            "LSHIFT" ->
-              :<<<
-
-            "RSHIFT" ->
-              :>>>
-
-            "NOT" ->
-              :"~~~"
-
-            value ->
-              "gate_#{value}"
-          end
-      end
-    end
-
-    defp gates_from_file(nil, _except), do: nil
-
-    defp gates_from_file(file, except) do
-      gates_file = Path.join([__DIR__, "../../", file])
+    defp register_gates(file, except) do
+      gates_file = Path.join([__DIR__, "../../", file]) |> Path.expand()
 
       ast =
         for line <- File.stream!(gates_file, [], :line) do
           [input, gate] = line |> String.split(" -> ") |> Enum.map(&String.trim/1)
-          gate_function = input_to_type(gate) |> String.to_atom()
           gate = String.to_atom(gate)
 
-          block = input |> String.split(" ") |> Enum.map(&input_to_type/1)
+          block = input |> String.split(" ") |> Enum.map(&input_to_type/1) |> block_to_data()
 
-          included =
-            unless gate in except do
-              quote do
-                defp unquote(gate_function)(memorized) do
-                  case Map.get(memorized, unquote(gate_function)) do
-                    nil ->
-                      {value, new_memorized} = unquote(generate_blocks(block))
-                      new_memorized = Map.put(new_memorized, unquote(gate_function), value)
-                      {value, new_memorized}
-
-                    value ->
-                      {value, memorized}
-                  end
-                end
-              end
+          unless gate in except do
+            quote location: :keep, generated: true do
+              @gate unquote(Macro.escape({gate, block}))
             end
-
-          quote do
-            def gate_value(unquote(gate)) do
-              {value, _memorized} = unquote(gate_function)(%{})
-              value
-            end
-
-            unquote(included)
           end
         end
 
@@ -151,6 +107,26 @@ defmodule AoC.Year2015.Day7 do
         @external_resource unquote(gates_file)
 
         unquote(ast)
+      end
+    end
+
+    defp block_to_data([a]), do: a
+    defp block_to_data([neg, a]), do: {neg, a}
+    defp block_to_data([a, op, b]), do: {op, a, b}
+
+    defp input_to_type("AND"), do: :&&&
+    defp input_to_type("OR"), do: :|||
+    defp input_to_type("LSHIFT"), do: :<<<
+    defp input_to_type("RSHIFT"), do: :>>>
+    defp input_to_type("NOT"), do: :~~~
+
+    defp input_to_type(input) do
+      case Integer.parse(input) do
+        {value, ""} ->
+          {:value, value}
+
+        _ ->
+          {:gate, String.to_atom(input)}
       end
     end
   end
@@ -162,15 +138,7 @@ defmodule AoC.Year2015.Day7 do
   defmodule Task2 do
     use LogicGates, file: "input/2015/input_day07.txt", except: [:b]
 
-    defp gate_b(%{gate_b: value} = memorized) do
-      {value, memorized}
-    end
-
-    defp gate_b(memorized) do
-      b = Task1.gate_value(:a)
-      new_memorized = Map.put(memorized, :gate_b, b)
-      {b, new_memorized}
-    end
+    @gate {:b, {:value, Task1.gate_value(:a)}}
   end
 end
 

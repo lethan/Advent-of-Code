@@ -2,15 +2,17 @@ defmodule AoC.Year2024.Day1 do
   def import(file) do
     {:ok, content} = File.read(file)
 
-    {a, b} = content
-    |> String.split("\n", trim: true)
-    |> Enum.reduce({[], []}, fn str, {front, back} ->
-      [a, b] = str
-      |> String.split()
-      |> Enum.map(&String.to_integer/1)
+    {a, b} =
+      content
+      |> String.split("\n", trim: true)
+      |> Enum.reduce({[], []}, fn str, {front, back} ->
+        [a, b] =
+          str
+          |> String.split()
+          |> Enum.map(&String.to_integer/1)
 
-      {[a | front], [b | back]}
-    end)
+        {[a | front], [b | back]}
+      end)
 
     {Enum.reverse(a), Enum.reverse(b)}
   end

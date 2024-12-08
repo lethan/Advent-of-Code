@@ -41,7 +41,7 @@ defmodule AoC.Year2015.Day7 do
       output
     end
 
-    #@dialyzer {:nowarn_function, value: 3}
+    # @dialyzer {:nowarn_function, value: 3}
     def value({:value, value}, gates, _) do
       {value, gates}
     end
@@ -52,7 +52,7 @@ defmodule AoC.Year2015.Day7 do
       {value, new_gates}
     end
 
-    #@dialyzer {:nowarn_function, gate_value: 3}
+    # @dialyzer {:nowarn_function, gate_value: 3}
     def gate_value(gate, gates, bitpattern) do
       case Map.get(gates, gate) do
         value when is_integer(value) ->
@@ -75,7 +75,7 @@ defmodule AoC.Year2015.Day7 do
           gates = Map.put(gates, gate, value)
           {value, gates}
 
-        {:~~~, left} ->
+        {:"~~~", left} ->
           {left_value, gates} = value(left, gates, bitpattern)
 
           value = Bitwise.~~~(left_value) |> Bitwise.&&&(bitpattern)
@@ -118,7 +118,7 @@ defmodule AoC.Year2015.Day7 do
     defp input_to_type("OR"), do: :|||
     defp input_to_type("LSHIFT"), do: :<<<
     defp input_to_type("RSHIFT"), do: :>>>
-    defp input_to_type("NOT"), do: :~~~
+    defp input_to_type("NOT"), do: :"~~~"
 
     defp input_to_type(input) do
       case Integer.parse(input) do

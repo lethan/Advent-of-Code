@@ -45,7 +45,7 @@ defmodule AoC.Year2024.Day22 do
       old_value = rem(secret, 10)
       diff = new_value - old_value
 
-      map = if is_nil(a), do: map, else: Map.put_new(map, {a, b, c, diff}, new_value)
+      map = if is_nil(a) or diff < 0, do: map, else: Map.put_new(map, {a, b, c, diff}, new_value)
       {map, new_secret, {b, c, diff}}
     end)
     |> elem(0)

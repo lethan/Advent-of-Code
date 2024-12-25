@@ -1,5 +1,4 @@
-defmodule Day2 do
-
+defmodule AoC.Year2020.Day2 do
   def import(file) do
     {:ok, content} = File.read(file)
 
@@ -16,10 +15,10 @@ defmodule Day2 do
   def task1(input) do
     input
     |> Enum.filter(fn mp ->
-      count = mp.string |> String.graphemes |> Enum.count(& &1 == mp.letter)
+      count = mp.string |> String.graphemes() |> Enum.count(&(&1 == mp.letter))
       count <= mp.max and count >= mp.min
     end)
-    |> Enum.count
+    |> Enum.count()
   end
 
   def task2(input) do
@@ -29,16 +28,16 @@ defmodule Day2 do
       last = String.at(mp.string, mp.max - 1) == mp.letter
       (first and !last) or (!first and last)
     end)
-    |> Enum.count
+    |> Enum.count()
   end
 end
 
-input = Day2.import("input_day02.txt")
+# input = AoC.Year2020.Day2.import("input/2020/input_day02.txt")
 
-input
-|> Day2.task1
-|> IO.puts
+# input
+# |> AoC.Year2020.Day2.task1()
+# |> IO.puts()
 
-input
-|> Day2.task2
-|> IO.puts
+# input
+# |> AoC.Year2020.Day2.task2()
+# |> IO.puts()

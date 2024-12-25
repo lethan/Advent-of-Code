@@ -4,7 +4,7 @@ require 'set'
 
 Instruction = Struct.new(:direction, :distance)
 
-file = File.open('input_day03.txt', 'r')
+file = File.open('../../input/2019/input_day03.txt', 'r')
 wires = []
 while (line = file.gets)
   wires << line.strip.split(',').map do |input|

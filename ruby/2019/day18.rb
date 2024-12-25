@@ -5,7 +5,7 @@ require 'set'
 key_map = []
 key_locations = {}
 row_number = 0
-file = File.open('input_day18.txt', 'r')
+file = File.open('../../input/2019/input_day18.txt', 'r')
 while (line = file.gets)
   row = line.strip.split('').each_with_index.map do |char, index|
     case char

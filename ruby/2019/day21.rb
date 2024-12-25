@@ -3,7 +3,7 @@
 require_relative 'intcode'
 
 program = []
-file = File.open('input_day21.txt', 'r')
+file = File.open('../../input/2019/input_day21.txt', 'r')
 while (line = file.gets)
   program = line.strip.split(',').map(&:to_i)
 end

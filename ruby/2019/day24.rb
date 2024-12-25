@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 bugs = []
-file = File.open('input_day24.txt', 'r')
+file = File.open('../../input/2019/input_day24.txt', 'r')
 row = 0
 bug_levels = {}
 bug_levels[0] = {}

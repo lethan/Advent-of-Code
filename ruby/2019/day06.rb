@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-file = File.open('input_day06.txt', 'r')
+file = File.open('../../input/2019/input_day06.txt', 'r')
 input = {}
 while (line = file.gets)
   orbit_objects = line.chomp.split(')')

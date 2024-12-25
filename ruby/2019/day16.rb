@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 input = []
-file = File.open('input_day16.txt', 'r')
+file = File.open('../../input/2019/input_day16.txt', 'r')
 while (line = file.gets)
   input = line.strip.split('').map(&:to_i)
 end

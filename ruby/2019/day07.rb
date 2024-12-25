@@ -85,7 +85,7 @@ class Program
   end
 end
 
-file = File.open('input_day07.txt', 'r')
+file = File.open('../../input/2019/input_day07.txt', 'r')
 while (line = file.gets)
   program = line.strip.split(',').map(&:to_i)
 end

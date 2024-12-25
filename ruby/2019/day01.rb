@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-file = File.open('input_day01.txt', 'r')
+file = File.open('../../input/2019/input_day01.txt', 'r')
 weights = []
 while (line = file.gets)
   weights << line.strip.to_i

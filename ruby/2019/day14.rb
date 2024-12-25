@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 reactions = {}
-file = File.open('input_day14.txt', 'r')
+file = File.open('../../input/2019/input_day14.txt', 'r')
 while (line = file.gets)
   in_out = line.strip.split(' => ')
   result = in_out.last

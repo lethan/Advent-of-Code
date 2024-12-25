@@ -332,7 +332,7 @@ def programs(instruction_sequence)
 end
 
 program = []
-file = File.open('input_day17.txt', 'r')
+file = File.open('../../input/2019/input_day17.txt', 'r')
 while (line = file.gets)
   program = line.strip.split(',').map(&:to_i)
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-file = File.open('input_day12.txt', 'r')
+file = File.open('../../input/2019/input_day12.txt', 'r')
 moons = []
 while (line = file.gets)
   if (match = /<x=(-?\d+), y=(-?\d+), z=(-?\d+)>/.match(line))

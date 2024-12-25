@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-file = File.open('input_day08.txt', 'r')
+file = File.open('../../input/2019/input_day08.txt', 'r')
 while (line = file.gets)
   bits = line.strip.split('').map(&:to_i)
 end

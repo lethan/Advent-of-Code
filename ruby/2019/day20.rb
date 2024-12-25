@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 maze_input = []
-file = File.open('input_day20.txt', 'r')
+file = File.open('../../input/2019/input_day20.txt', 'r')
 while (line = file.gets)
   maze_input << line.chomp.split('')
 end

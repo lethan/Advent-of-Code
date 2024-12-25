@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 shuffle_instructions = []
-file = File.open('input_day22.txt', 'r')
+file = File.open('../../input/2019/input_day22.txt', 'r')
 while (line = file.gets)
   shuffle_instructions << case line.strip
                           when 'deal into new stack'

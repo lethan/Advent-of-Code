@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Programm class that runs programs
 class Program
   def initialize(program)
     @program = program.clone
@@ -23,18 +22,12 @@ class Program
     @outputs.shift
   end
 
-  def ended?
-    @status == :halted
+  def outputs?
+    !@outputs.empty?
   end
 
-  private
-
-  def valid_program(address)
-    return unless @program.size <= address
-
-    @program.size.upto(address) do |index|
-      @program[index] = 0
-    end
+  def ended?
+    @status == :halted
   end
 
   def get_program_address(address)
@@ -45,6 +38,16 @@ class Program
   def set_program_address(address, value)
     valid_program(address)
     @program[address] = value
+  end
+
+  private
+
+  def valid_program(address)
+    return unless @program.size <= address
+
+    @program.size.upto(address) do |index|
+      @program[index] = 0
+    end
   end
 
   def run
@@ -130,11 +133,80 @@ class Program
   end
 end
 
-file = File.open('input_day09.txt', 'r')
+def display_game(tiles, interactive = false)
+  system 'clear' if interactive
+  rows = tiles.keys.map(&:last).max
+  columns = tiles.keys.map(&:first).max
+  (0..rows).each do |row|
+    (0..columns).each do |column|
+      print case tiles[[column, row]]
+            when 0
+              ' '
+            when 1
+              '#'
+            when 2
+              'X'
+            when 3
+              '-'
+            when 4
+              'o'
+            else
+              ' '
+            end
+    end
+    print "\n"
+    $stdout.flush
+  end
+  puts ''
+  $stdout.flush
+  sleep(0.15) if interactive
+end
+
+file = File.open('../../input/2019/input_day13.txt', 'r')
 while (line = file.gets)
   program = line.strip.split(',').map(&:to_i)
 end
 file.close
 
-puts Program.new(program).input(1).output
-puts Program.new(program).input(2).output
+tiles_program = Program.new(program)
+tiles = {}
+while (x_pos = tiles_program.output)
+  y_pos = tiles_program.output
+  tile_id = tiles_program.output
+  tiles[[x_pos, y_pos]] = tile_id
+end
+
+blocks = 0
+tiles.each do |_, tile|
+  blocks += 1 if tile == 2
+end
+puts blocks
+
+game_program = program.clone
+game_program[0] = 2
+game = Program.new(game_program)
+tiles = {}
+x_pos, y_pos = 0
+ball_pos = 0
+paddle_pos = 0
+next_out = :x_pos
+until game.ended? && !game.outputs?
+  while (output = game.output)
+    case next_out
+    when :x_pos
+      x_pos = output
+      next_out = :y_pos
+    when :y_pos
+      y_pos = output
+      next_out = :tile_id
+    when :tile_id
+      tile_id = output
+      tiles[[x_pos, y_pos]] = tile_id
+      next_out = :x_pos
+      paddle_pos = x_pos if tile_id == 3
+      ball_pos = x_pos if tile_id == 4
+    end
+  end
+  game.input(ball_pos <=> paddle_pos)
+end
+puts tiles[[-1, 0]]

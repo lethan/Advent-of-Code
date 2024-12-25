@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 require 'set'
-require 'cmath'
 
 asteroid_map = []
 asteroid_coords = []
-file = File.open('input_day10.txt', 'r')
+file = File.open('../../input/2019/input_day10.txt', 'r')
 row = 0
 while (line = file.gets)
   asteroid_row = line.strip.split('').map { |c| c == '#' }
@@ -41,7 +40,7 @@ visible_directions.each do |key, val|
 end
 puts max_visible
 
-directions = visible_directions[center_asteroid].to_a.sort_by { |a| -(CMath.atan2(a[0], a[1]) - Math::PI / 4) }
+directions = visible_directions[center_asteroid].to_a.sort_by { |a| -(Math.atan2(a[0], a[1]) - Math::PI / 4) }
 destroyed_two_hundred = 0
 destroy_count = 0
 while destroy_count <= 200

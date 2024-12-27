@@ -63,12 +63,12 @@ defmodule AoC.Year2020.Day7 do
   end
 end
 
-input = AoC.Year2020.Day7.import("input/2020/input_day07.txt")
+# input = AoC.Year2020.Day7.import("input/2020/input_day07.txt")
 
-input
-|> AoC.Year2020.Day7.task1()
-|> IO.puts()
+# input
+# |> AoC.Year2020.Day7.task1()
+# |> IO.puts()
 
-input
-|> AoC.Year2020.Day7.task2()
-|> IO.puts()
+# input
+# |> AoC.Year2020.Day7.task2()
+# |> IO.puts()

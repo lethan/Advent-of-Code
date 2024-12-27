@@ -1,15 +1,15 @@
-defmodule Day10 do
-
+defmodule AoC.Year2020.Day10 do
   def import(file) do
     {:ok, content} = File.read(file)
 
     content
     |> String.split("\n", trim: true)
     |> Enum.map(&String.to_integer/1)
-    |> Enum.sort
+    |> Enum.sort()
   end
 
   defp chunk_at_three_steps(current_value, []), do: {:cont, [current_value]}
+
   defp chunk_at_three_steps(current_value, [last_value | _] = acc) do
     if current_value - last_value == 3 do
       {:cont, Enum.reverse(acc), [current_value]}
@@ -23,9 +23,10 @@ defmodule Day10 do
 
   defp permutations([element], acc), do: [[element | acc]]
   defp permutations([element | rest], []), do: permutations(rest, [element])
+
   defp permutations([element | rest], acc) do
     permutations(rest, acc) ++
-    permutations(rest, [element | acc])
+      permutations(rest, [element | acc])
   end
 
   defp valid_permutation?([first | rest = [second | _]]) do
@@ -35,13 +36,15 @@ defmodule Day10 do
       false
     end
   end
+
   defp valid_permutation?(_), do: true
 
   def task1(input) do
-    {diffs, _} = input
-    |> Enum.reduce({%{3 => 1}, 0}, fn x, {diffs, last_value} ->
-      {Map.update(diffs, x - last_value, 1, &(&1 + 1)), x}
-    end)
+    {diffs, _} =
+      input
+      |> Enum.reduce({%{3 => 1}, 0}, fn x, {diffs, last_value} ->
+        {Map.update(diffs, x - last_value, 1, &(&1 + 1)), x}
+      end)
 
     Map.get(diffs, 1, 0) * Map.get(diffs, 3, 0)
   end
@@ -56,12 +59,12 @@ defmodule Day10 do
   end
 end
 
-input = Day10.import("input_day10.txt")
+# input = AoC.Year2020.Day10.import("input/2020/input_day10.txt")
 
-input
-|> Day10.task1
-|> IO.puts
+# input
+# |> AoC.Year2020.Day10.task1()
+# |> IO.puts()
 
-input
-|> Day10.task2
-|> IO.puts
+# input
+# |> AoC.Year2020.Day10.task2()
+# |> IO.puts()

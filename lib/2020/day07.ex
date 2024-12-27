@@ -1,5 +1,4 @@
-defmodule Day7 do
-
+defmodule AoC.Year2020.Day7 do
   def import(file) do
     {:ok, content} = File.read(file)
 
@@ -10,24 +9,30 @@ defmodule Day7 do
 
   defp split_to_pair(string) do
     [current_bag, rest] = String.split(string, " bags contain ")
-    bags = Regex.scan(~r/([0-9]+) ([^.,]+) bags?[.,]/, rest, capture: :all_but_first)
-    |> Enum.map(fn [count, bag] -> {bag, String.to_integer(count)} end)
+
+    bags =
+      Regex.scan(~r/([0-9]+) ([^.,]+) bags?[.,]/, rest, capture: :all_but_first)
+      |> Enum.map(fn [count, bag] -> {bag, String.to_integer(count)} end)
+
     {current_bag, bags}
   end
 
   defp build_contained_in_tree(tree, current_bag, contained_in) do
-    {_, tree} = Map.get_and_update(tree, contained_in, fn current_value ->
-      {current_value, if current_value do
-        MapSet.put(current_value, current_bag)
-      else
-        MapSet.new([current_bag])
-      end}
-    end)
+    {_, tree} =
+      Map.get_and_update(tree, contained_in, fn current_value ->
+        {current_value,
+         if current_value do
+           MapSet.put(current_value, current_bag)
+         else
+           MapSet.new([current_bag])
+         end}
+      end)
+
     tree
   end
 
   defp contained_in(tree, current_bag, visited) do
-    Enum.reduce(Map.get(tree, current_bag, MapSet.new), visited, fn x, acc ->
+    Enum.reduce(Map.get(tree, current_bag, MapSet.new()), visited, fn x, acc ->
       if Map.get(acc, x) == nil do
         contained_in(tree, x, MapSet.put(acc, x))
       else
@@ -47,8 +52,8 @@ defmodule Day7 do
         build_contained_in_tree(acc, current_bag, bag)
       end)
     end)
-    |> contained_in("shiny gold", MapSet.new)
-    |> MapSet.size
+    |> contained_in("shiny gold", MapSet.new())
+    |> MapSet.size()
   end
 
   def task2(input) do
@@ -58,12 +63,12 @@ defmodule Day7 do
   end
 end
 
-input = Day7.import("input_day07.txt")
+input = AoC.Year2020.Day7.import("input/2020/input_day07.txt")
 
 input
-|> Day7.task1
-|> IO.puts
+|> AoC.Year2020.Day7.task1()
+|> IO.puts()
 
 input
-|> Day7.task2
-|> IO.puts
+|> AoC.Year2020.Day7.task2()
+|> IO.puts()

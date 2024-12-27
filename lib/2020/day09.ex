@@ -1,5 +1,4 @@
-defmodule Day9 do
-
+defmodule AoC.Year2020.Day9 do
   def import(file) do
     {:ok, content} = File.read(file)
 
@@ -9,6 +8,7 @@ defmodule Day9 do
   end
 
   defp valid_number?([], _number), do: false
+
   defp valid_number?([a | rest], number) do
     case Enum.member?(rest, number - a) do
       true -> true
@@ -28,15 +28,17 @@ defmodule Day9 do
     cond do
       current_sum == target_sum ->
         if Enum.count(selected) > 1 do
-         {min, max} = Enum.min_max(selected)
-         min + max
+          {min, max} = Enum.min_max(selected)
+          min + max
         else
           [current_number | rest_data] = data
           encryption_weakness(rest_data, target_sum, selected ++ [current_number], current_sum + current_number)
         end
+
       current_sum < target_sum ->
         [current_number | rest_data] = data
         encryption_weakness(rest_data, target_sum, selected ++ [current_number], current_sum + current_number)
+
       current_sum > target_sum ->
         [current_selected | rest_selected] = selected
         encryption_weakness(data, target_sum, rest_selected, current_sum - current_selected)
@@ -52,12 +54,14 @@ defmodule Day9 do
   end
 end
 
-input = Day9.import("input_day09.txt")
+# input = AoC.Year2020.Day9.import("input/2020/input_day09.txt")
 
-first_invalid = input
-|> Day9.task1
-IO.puts(first_invalid)
+# first_invalid =
+#   input
+#   |> AoC.Year2020.Day9.task1()
 
-input
-|> Day9.task2(first_invalid)
-|> IO.puts
+# IO.puts(first_invalid)
+
+# input
+# |> AoC.Year2020.Day9.task2(first_invalid)
+# |> IO.puts()

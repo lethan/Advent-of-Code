@@ -111,8 +111,8 @@ defmodule AoC.Year2020.Day20 do
   end
 end
 
-input = AoC.Year2020.Day20.import("input/2020/input_day20.txt")
-monster = AoC.Year2020.Day20.import_pattern("input/2020/input_day20_monster.txt")
+# input = AoC.Year2020.Day20.import("input/2020/input_day20.txt")
+# monster = AoC.Year2020.Day20.import_pattern("input/2020/input_day20_monster.txt")
 
-input
-|> AoC.Year2020.Day20.tasks(monster)
+# input
+# |> AoC.Year2020.Day20.tasks(monster)

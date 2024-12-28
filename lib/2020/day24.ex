@@ -1,4 +1,4 @@
-defmodule AoC.Year2020.DDay24 do
+defmodule AoC.Year2020.Day24 do
   @directions ~w(east west northeast northwest southeast southwest)a
 
   def import(file) do
@@ -124,12 +124,12 @@ defmodule AoC.Year2020.DDay24 do
   end
 end
 
-# input = AoC.Year2020.DDay24.import("input/2020/input_day24.txt")
+# input = AoC.Year2020.Day24.import("input/2020/input_day24.txt")
 
 # input
-# |> AoC.Year2020.DDay24.task1()
+# |> AoC.Year2020.Day24.task1()
 # |> IO.puts()
 
 # input
-# |> AoC.Year2020.DDay24.task2()
+# |> AoC.Year2020.Day24.task2()
 # |> IO.puts()

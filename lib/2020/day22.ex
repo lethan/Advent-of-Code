@@ -159,12 +159,12 @@ defmodule AoC.Year2020.Day22 do
   end
 end
 
-input = AoC.Year2020.Day22.import("input/2020/input_day22.txt")
+# input = AoC.Year2020.Day22.import("input/2020/input_day22.txt")
 
-input
-|> AoC.Year2020.Day22.task1()
-|> IO.puts()
+# input
+# |> AoC.Year2020.Day22.task1()
+# |> IO.puts()
 
-input
-|> AoC.Year2020.Day22.task2()
-|> IO.puts()
+# input
+# |> AoC.Year2020.Day22.task2()
+# |> IO.puts()

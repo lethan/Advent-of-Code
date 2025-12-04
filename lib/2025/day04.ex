@@ -36,7 +36,7 @@ defmodule AoC.Year2025.Day4 do
   end
 
   defp remove_rolls(map, counter \\ 0) do
-    {map, counter} =
+    {map, counter2} =
       map
       |> Enum.filter(fn {_, value} -> value == :roll end)
       |> Enum.reduce({map, counter}, fn {{x, y}, _}, {map, counter} ->
@@ -55,10 +55,10 @@ defmodule AoC.Year2025.Day4 do
         end
       end)
 
-    if accecessable_rolls(map) == 0 do
-      counter
+    if counter2 == counter do
+      counter2
     else
-      remove_rolls(map, counter)
+      remove_rolls(map, counter2)
     end
   end
 

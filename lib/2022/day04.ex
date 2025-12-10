@@ -1,4 +1,4 @@
-defmodule AoC.Year022.Day4 do
+defmodule AoC.Year2022.Day4 do
   def import(file) do
     {:ok, content} = File.read(file)
 
